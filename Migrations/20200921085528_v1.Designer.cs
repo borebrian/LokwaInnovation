@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LokwaInnovation.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20200921082626_v1")]
+    [Migration("20200921085528_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,6 +29,10 @@ namespace LokwaInnovation.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Full_name")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 

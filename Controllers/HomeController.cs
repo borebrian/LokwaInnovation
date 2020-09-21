@@ -33,8 +33,8 @@ namespace LokwaInnovation.Controllers
             {
                 _context.Add(contacts);
                 await _context.SaveChangesAsync();
-                ViewBag.Message="Message sent successfully! we will reach back to you shortly"
-                return RedirectToAction(nameof(Index));
+                ViewBag.Message = "Message sent successfully! we will reach back to you shortly";
+                
             }
 
             return View();

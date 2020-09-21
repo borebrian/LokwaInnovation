@@ -15,7 +15,8 @@ namespace LokwaInnovation.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Full_name = table.Column<string>(nullable: false),
                     Subject = table.Column<string>(nullable: false),
-                    Date = table.Column<string>(nullable: false)
+                    Date = table.Column<string>(nullable: false),
+                    Message = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

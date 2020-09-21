@@ -269,7 +269,20 @@
                                                     </div>
                                                     <div class="col-lg-12">
                                                         <fieldset style="margin-top:15px">
-                                                            <button type="submit"  class="main-button">Send Message</button>
+                                                            <button type="submit" class="main-button">Send Message</button>
+
+                                                            @if (ViewBag.Message != null)
+                                                            {
+
+                                                                <div class="alert alert-success">
+                                                                    <strong>Success!</strong> &nbsp; @ViewBag.Message
+                                                                </div>}
+                                                            @*else
+                                                            {
+                                                                <div class="alert alert-danger">
+                                                                    <strong>Error!</strong> &nbsp; @ViewBag.Message
+                                                                </div>
+                                                            }*@
                                                         </fieldset>
                                                     </div>
                                                 </div>
