@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LokwaInnovation.DBContext;
 using LokwaInnovation.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace LokwaInnovation.Controllers
 {
@@ -51,6 +52,47 @@ namespace LokwaInnovation.Controllers
             return View();
         }
 
+        
+
+        public IActionResult LoginUser(Log_in user)
+        {
+            
+                
+                var pass = user.Password;
+
+                TokenProvider TokenProvider = new TokenProvider(_context);
+
+                var userToken = TokenProvider.LoginUser(user.Phone_number, user.Password);
+                if (userToken == null)
+                {
+                return Content("Error");
+                // TempData["Error"] = "Invalid login credentials";
+
+                //return Content("Incorrect User Or Pass Or Either Your Account Has not been varified");
+                // return Redirect("~/Log_in/Log_in");
+            }
+                else
+                {
+                return Content("Successs");
+                // HttpContext.Session.SetString("JWToken", userToken);
+                //return Redirect("~/Tenders/Master");
+            }
+
+               
+
+            
+            //return Redirect("~/Tenders/Master");
+
+        }
+        public IActionResult Logoff()
+        {
+            HttpContext.Session.Clear();
+            return Redirect("~/Home/Index");
+
+        }
+
+
+
         // POST: Log_in/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -75,15 +117,38 @@ namespace LokwaInnovation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
+
         public async Task<IActionResult> Create([Bind("Full_name,Phone_number,Email,Password,Date,User_ID,Roles")] Log_in log_in)
         {
+
+
             if (ModelState.IsValid)
             {
-                _context.Add(log_in);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                bool clientUsernameExists = _context.Log_in.Any(x => x.Phone_number == log_in.Phone_number);
+                if (clientUsernameExists)
+                {
+                    ViewBag.MessageError = "A user has been registered with above phone number.Please use another phone number!";
+                    return View();
+                }
+                else
+                {
+                    _context.Add(log_in);
+                    await _context.SaveChangesAsync();
+                    ViewBag.MessageSuccess = "User created successfully please log in to proceed!";
+                    return View();
+                }
+
+              
+                //return RedirectToAction(nameof(Index));
             }
-            return View(log_in);
+            else
+            {
+                return View();
+
+            }
+
         }
 
         // GET: Log_in/Edit/5

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LokwaInnovation.DBContext;
 using LokwaInnovation.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LokwaInnovation.Controllers
 {
+    [Authorize]
     public class ContactsController : Controller
     {
         private readonly ApplicationDBContext _context;
@@ -20,6 +22,8 @@ namespace LokwaInnovation.Controllers
         }
 
         // GET: Contacts
+        //ama unataka kwa controller gani? ukiweka hapo juu inamaanisha controller zote zitakua authorized to anonymous ama?..hapana..nikiweka uko juu ionamaanisha that only this controller..including all the action methods..but [AllowAnonymous] itaalow only kwa iyo action
+        //sawa na saa nkataka iwe in such a way that kama hajalog in impeleke kwa login page??..so itakuwa kwa startap class..but lazima kwanza ukue umeauthorize iyo controller
         public async Task<IActionResult> Index()
         {
             return View(await _context.AnonymousMessages.ToListAsync());

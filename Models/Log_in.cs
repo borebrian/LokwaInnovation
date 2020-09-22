@@ -16,6 +16,7 @@ namespace LokwaInnovation.Models
 
 
         [Required]
+        [StringLength(13, MinimumLength = 10, ErrorMessage = "Invalid phone number")]
         [Display(Name = "Phone number")]
         [DataType(DataType.PhoneNumber)]
         public string Phone_number { get; set; }

@@ -1,9 +1,10 @@
-﻿
+﻿@model LokwaInnovation.Models.Log_in
+
 @{
     ViewData["Title"] = "View";
     Layout = null;
-    @model LokwaInnovation.Models.Log_in
 }
+
 
 
 
@@ -20,6 +21,17 @@
 <link href="~/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="/build/css/intlTelInput.css">
 <link rel="stylesheet" href="/build/css/demo.css">
+<link href="~/css/templatemo-training-studio.css" rel="stylesheet" />
+<meta name="msapplication-navbutton-color" content="#333333">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-status-bar-style" content="#ed563b">
+<meta name="theme-color" content="#333333">
+<!-- Windows Phone -->
+<meta name="msapplication-navbutton-color" content="#333333">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-status-bar-style" content="#333333">
+
+
 <div class="row" id="call-to-action1">
     <div class="col-lg-3">
 
@@ -27,7 +39,7 @@
     <div class="col-lg-6 ">
 
         <div class="card " style="margin: 15px;
-        margin-top: 100px;border:none
+        margin-top: 20px;border:none
 ">
             <div class="card-header text-center text-white" style="background-color:#ed563b;
 ">
@@ -55,7 +67,7 @@
                             <div class="col-md-6 col-lg-6 col-sm-12">
                                 <fieldset>
                                     <div class="input-group mb-3">
-                                      
+
                                         <input asp-for="Phone_number" id="phone" type="tel" class="form-control" />
                                     </div>
                                 </fieldset>
@@ -66,19 +78,19 @@
                             @if (ViewBag.anonymous != null)
                             {
 
-                                <div class="col-md-6 col-lg-6 col-sm-12">
-                                    <fieldset>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend text-light">
-                                                <span class="input-group-text text-light" style="        background-color: #ed563b
-"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                                            </div>
-                                            <input asp-for="Email" class="form-control" />
+                            <div class="col-md-6 col-lg-6 col-sm-12">
+                                <fieldset>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend text-light">
+                                            <span class="input-group-text text-light" style="        background-color: #ed563b
+"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
                                         </div>
-                                    </fieldset>
-                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                        <input asp-for="Email" class="form-control" />
+                                    </div>
+                                </fieldset>
+                                <span asp-validation-for="Email" class="text-danger"></span>
 
-                                </div>
+                            </div>
                             }
                             <div class="col-md-12 col-sm-12">
                                 <fieldset>
@@ -106,22 +118,16 @@
                                 <span asp-validation-for="Date" class="text-danger"></span>
 
                             </div>
-                            <div class="col-lg-12">
+                            <div class="col-lg-12 text-center">
                                 <fieldset style="margin-top:15px">
                                     <div class="btn-group-sm">
-                                        <button type="submit" class="main-button" style="border-top-left-radius:25px;border-bottom-left-radius:25px;"><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;Log in</button> <button type="submit" class="main-button" style="border-top-right-radius: 25px;
-        border-bottom-right-radius: 25px;
-">
+                                        <a href="/Log_in/Log_in" class="main-button " style="margin-right:15px;color: #ed563b
+"><i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;&nbsp;Log in</a>
+                                        <button type="submit" class="main-button" style="border-radius: 25px;">
                                             Sign up&nbsp;&nbsp;<i class="fa fa-users" aria-hidden="true"></i>
                                         </button>
                                     </div>
 
-                                    @if (ViewBag.Message != null)
-                                    {
-
-                                        <div class="alert alert-success">
-                                            <strong>Success!</strong> &nbsp; @ViewBag.Message
-                                        </div>}
                                     @*else
                                         {
                                             <div class="alert alert-danger">
@@ -130,13 +136,27 @@
                                         }*@
                                 </fieldset>
                             </div>
-                            <div class="col-lg-12 text-center" style="margin-top:15px;">
-                                <a href style="color: #ed563b
-">Forgot password?</a>
 
-                            </div>
                         </div>
                     </form>
+
+                    @if (ViewBag.MessageSuccess != null)
+                    {
+
+                    <div class="alert alert-primary" style="margin-top:15px">
+                        <strong>Success!</strong> &nbsp; @ViewBag.MessageSuccess
+                    </div>
+
+                    }
+                    @if (ViewBag.MessageError != null)
+                    {
+
+
+
+                    <div class="alert alert-danger" style="margin-top:15px">
+                        <strong>Warning!</strong> &nbsp; @ViewBag.MessageError
+                    </div>
+                    }
                 </div>
 
             </div>
@@ -152,25 +172,25 @@
         var input = document.querySelector("#phone");
         window.intlTelInput(input, {
             // allowDropdown: false,
-             autoHideDialCode: false,
+            autoHideDialCode: false,
             // autoPlaceholder: "off",
-             dropdownContainer: document.body,
+            dropdownContainer: document.body,
             // excludeCountries: ["us"],
-             formatOnDisplay: false,
-             geoIpLookup: function(callback) {
-               $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
-                 var countryCode = (resp && resp.country) ? resp.country : "";
-                 callback(countryCode);
-               });
-             },
-             hiddenInput: "full_number",
+            formatOnDisplay: false,
+            geoIpLookup: function (callback) {
+                $.get("http://ipinfo.io", function () { }, "jsonp").always(function (resp) {
+                    var countryCode = (resp && resp.country) ? resp.country : "";
+                    callback(countryCode);
+                });
+            },
+            hiddenInput: "full_number",
             // initialCountry: "auto",
             // localizedCountries: { 'de': 'Deutschland' },
-             nationalMode: false,
+            nationalMode: false,
             // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
-             placeholderNumberType: "MOBILE",
+            placeholderNumberType: "MOBILE",
             // preferredCountries: ['cn', 'jp'],
-             //separateDialCode: true,
+            //separateDialCode: true,
             utilsScript: "/build/js/utils.js",
         });
     </script>
