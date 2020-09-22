@@ -20,6 +20,7 @@ namespace LokwaInnovation.DBContext
 
 
         public DbSet<Contacts> AnonymousMessages { get; set; }
+        public DbSet<Log_in> Log_in { get; set; }
 
 
 

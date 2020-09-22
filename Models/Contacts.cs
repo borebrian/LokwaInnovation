@@ -10,7 +10,6 @@ namespace LokwaInnovation.Models
     public class Contacts
     {
 
-
         [Required]
         [Display(Name = "Full names", Prompt = "Full names")]
         public string Full_name { get; set; }
@@ -20,10 +19,10 @@ namespace LokwaInnovation.Models
         [DataType(DataType.PhoneNumber)]
         public string Subject { get; set; }
         
+
         [Required]
         [Display(Name = "Subject:", Prompt = "Subject")]
         [DataType(DataType.Password)]
-
 
         public string Date { get; set; }
         [Required]
