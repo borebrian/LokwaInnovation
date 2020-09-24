@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LokwaInnovation.Models;
 using LokwaInnovation.DBContext;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace LokwaInnovation.Controllers
 {
@@ -20,7 +22,7 @@ namespace LokwaInnovation.Controllers
             _logger = logger;
             _context = context;
         }
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult Index()
         {
             return View();

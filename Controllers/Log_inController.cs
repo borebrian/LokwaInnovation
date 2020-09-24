@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using LokwaInnovation.DBContext;
 using LokwaInnovation.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LokwaInnovation.Controllers
 {
@@ -52,12 +53,17 @@ namespace LokwaInnovation.Controllers
             return View();
         }
 
-        
+
 
         public IActionResult LoginUser(Log_in user)
         {
-            
-                
+            if (user.Phone_number == null || user.Password == null)
+            {
+                TempData["Error"] = "Username and password is required!";
+                return Redirect("~/Log_in/Log_in");
+            }
+            else
+            {
                 var pass = user.Password;
 
                 TokenProvider TokenProvider = new TokenProvider(_context);
@@ -65,21 +71,24 @@ namespace LokwaInnovation.Controllers
                 var userToken = TokenProvider.LoginUser(user.Phone_number, user.Password);
                 if (userToken == null)
                 {
-                return Content("Error");
-                // TempData["Error"] = "Invalid login credentials";
-
-                //return Content("Incorrect User Or Pass Or Either Your Account Has not been varified");
-                // return Redirect("~/Log_in/Log_in");
-            }
+                    
+                    TempData["Error"] = "Invalid login credentials";
+                    return Redirect("~/Log_in/Log_in");
+                }
                 else
                 {
-                return Content("Successs");
-                // HttpContext.Session.SetString("JWToken", userToken);
-                //return Redirect("~/Tenders/Master");
-            }
+                    HttpContext.Session.SetString("JWToken", userToken);
+                    TempData["Error"] = "Successfully loged in!";
 
+                    return Redirect("~/Home/index");
+
+                }
+            }
                
 
+
+            
+         
             
             //return Redirect("~/Tenders/Master");
 
@@ -106,7 +115,7 @@ namespace LokwaInnovation.Controllers
             return View();
         }
 
-
+        
             public IActionResult Create()
         {
             return View();

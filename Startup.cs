@@ -17,7 +17,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using MySql.Data.MySqlClient;
 
-namespace LokwaInnovation
+
+namespace Lubricants
 {
     public class Startup
     {
@@ -31,22 +32,27 @@ namespace LokwaInnovation
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
             services.AddControllersWithViews();
-            services.AddDbContext<ApplicationDBContext>(
-   options => options.UseMySql(Configuration.GetConnectionString("Default")));
-            services.AddTransient<MySqlConnection>(_ => new MySqlConnection(Configuration["Default"]));
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddControllersWithViews();
+            _ = services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddSession();
+            //services.AddDbContext<ApplicationDBContext>(options => options.UseMySql(absConnectionString));
+            services.AddHttpContextAccessor();
             services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(60);
-               
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
 
             });
+            services.AddDbContext<ApplicationDBContext>(
+    options => options.UseMySql(Configuration.GetConnectionString("Default")));
+            services.AddTransient<MySqlConnection>(_ => new MySqlConnection(Configuration["Default"]));
             var key = Encoding.ASCII.GetBytes("YourKey-2374-OFFKDI940NG7:56753253-tyuw-5769-0921-kfirox29zoxv");
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
+            })
+            .AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
@@ -62,8 +68,6 @@ namespace LokwaInnovation
                     ClockSkew = TimeSpan.Zero
                 };
             });
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,14 +83,8 @@ namespace LokwaInnovation
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseStatusCodePagesWithReExecute("/Log_in/Log_in", "?statusCode={0}");//only this
-            app.UseCookiePolicy();
             app.UseSession();
-            app.UseRouting();
-
-            app.UseAuthorization();
+            app.UseSession();
             app.Use(async (context, next) =>
             {
                 var JWToken = context.Session.GetString("JWToken");
@@ -94,11 +92,19 @@ namespace LokwaInnovation
                 {
                     context.Request.Headers.Add("Authorization", "Bearer " + JWToken);
                 }
-
                 await next();
             });
+            app.UseHttpsRedirection();
+            //redirect to login id not autenticated or invalid page..
+            app.UseStatusCodePagesWithReExecute("/Log_in/Log_in", "?statusCode={0}");
+            app.UseStaticFiles();
+            app.UseAuthentication();
+
+            app.UseRouting();
+            app.UseAuthorization();
+            
             app.UseEndpoints(endpoints =>
-            {
+            {//si utarudisha tu
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

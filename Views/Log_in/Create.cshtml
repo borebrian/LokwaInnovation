@@ -129,36 +129,38 @@
                                     </div>
 
                                     @*else
-                                        {
-                                            <div class="alert alert-danger">
-                                                <strong>Error!</strong> &nbsp; @ViewBag.Message
-                                            </div>
-                                        }*@
+                            {
+                                <div class="alert alert-danger">
+                                    <strong>Error!</strong> &nbsp; @ViewBag.Message
+                                </div>
+                            }*@
                                 </fieldset>
                             </div>
 
                         </div>
                     </form>
 
-                    @if (ViewBag.MessageSuccess != null)
-                    {
-
-                    <div class="alert alert-primary" style="margin-top:15px">
-                        <strong>Success!</strong> &nbsp; @ViewBag.MessageSuccess
-                    </div>
-
-                    }
-                    @if (ViewBag.MessageError != null)
-                    {
-
-
-
-                    <div class="alert alert-danger" style="margin-top:15px">
-                        <strong>Warning!</strong> &nbsp; @ViewBag.MessageError
-                    </div>
-                    }
                 </div>
 
+                @if (ViewBag.MessageSuccess != null)
+                    {
+
+                <div class="alert alert-primary" style="margin-top:15px;width:100%">
+                    <strong>Success!</strong> &nbsp; @ViewBag.MessageSuccess
+                </div>
+
+                    }
+                @if (ViewBag.MessageError != null)
+                    {
+
+
+
+                <div class="alert alert-danger" style="        margin-top: 15px;
+        width: 100%
+">
+                    <strong>Warning!</strong> &nbsp; @ViewBag.MessageError
+                </div>
+                    }
             </div>
 
         </div>

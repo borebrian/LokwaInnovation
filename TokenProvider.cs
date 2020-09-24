@@ -33,8 +33,7 @@ namespace LokwaInnovation
             //Authenticate User, Check if its a registered user in DB  - JRozario
             if (user == null)
                 return null;
-            else
-            {
+           
                 var key = Encoding.ASCII.GetBytes("YourKey-2374-OFFKDI940NG7:56753253-tyuw-5769-0921-kfirox29zoxv");
                 var JWToken = new JwtSecurityToken(
               issuer: "",
@@ -42,22 +41,17 @@ namespace LokwaInnovation
               claims: GetUserClaims(user),
               notBefore: new DateTimeOffset(DateTime.Now).DateTime,
               expires: new DateTimeOffset(DateTime.Now.AddDays(1)).DateTime,
-
               signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature));
                 var token = new JwtSecurityTokenHandler().WriteToken(JWToken);
                 var strusername = user.Email;
                 return token;
-            } 
-
-          //cheki hapa email yangu ni empty si tungefaa kuchange hapa ama..ebu tujaribu
-           
-           
+             
         }
         private IEnumerable<Claim> GetUserClaims(Log_in user)
         {
             List<Claim> claims = new List<Claim>();
             Claim _claim;
-            _claim = new Claim(ClaimTypes.Name, user.Full_name);//sawa tebu authorize sasa
+            _claim = new Claim(ClaimTypes.Name, user.Full_name);
             claims.Add(_claim);
             //_claim = new Claim(ClaimTypes.NameIdentifier, user.strUserId);
             //claims.Add(_claim);
