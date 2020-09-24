@@ -9,6 +9,7 @@ using LokwaInnovation.Models;
 using LokwaInnovation.DBContext;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Security.Claims;
 
 namespace LokwaInnovation.Controllers
 {
@@ -22,10 +23,56 @@ namespace LokwaInnovation.Controllers
             _logger = logger;
             _context = context;
         }
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
+        [Authorize]
+        public IActionResult redd()
+        {
+
+
+            var role = User.Identity.Name;
+
+            if (role == "1")
+            {
+                return Redirect("~/Home/Dashboard");
+
+            }
+            else
+            {
+                return Content("Not allowed");
+
+            }
+
+        }
+
+        [Authorize]
+        public IActionResult Dashboard()
+        {
+
+
+
+            return View();
+        
+        }
+            [Authorize]
         public IActionResult Index()
         {
-            return View();
+          
+
+            var email = User.Identity.Name;
+
+            var bigCities = new List<Claim>();
+            if (email == null)
+            {
+                return Content(null);
+
+            }
+            else
+            {
+                return Content(email.Count().ToString());
+
+            }
+           
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

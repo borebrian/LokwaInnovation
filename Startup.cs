@@ -84,7 +84,6 @@ namespace Lubricants
                 app.UseHsts();
             }
             app.UseSession();
-            app.UseSession();
             app.Use(async (context, next) =>
             {
                 var JWToken = context.Session.GetString("JWToken");
@@ -96,7 +95,7 @@ namespace Lubricants
             });
             app.UseHttpsRedirection();
             //redirect to login id not autenticated or invalid page..
-            app.UseStatusCodePagesWithReExecute("/Log_in/Log_in", "?statusCode={0}");
+            app.UseStatusCodePagesWithReExecute("/Home/Index", "?statusCode={0}");
             app.UseStaticFiles();
             app.UseAuthentication();
 

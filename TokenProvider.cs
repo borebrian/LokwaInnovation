@@ -1,5 +1,6 @@
 ﻿using LokwaInnovation.DBContext;
 using LokwaInnovation.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -51,9 +52,13 @@ namespace LokwaInnovation
         {
             List<Claim> claims = new List<Claim>();
             Claim _claim;
-            _claim = new Claim(ClaimTypes.Name, user.Full_name);
+            _claim = new Claim(ClaimTypes.Name, user.Roles.ToString());
             claims.Add(_claim);
-            //_claim = new Claim(ClaimTypes.NameIdentifier, user.strUserId);
+            _claim = new Claim(ClaimTypes.Role, user.Roles.ToString());
+            claims.Add(_claim);
+            _claim = new Claim("Roles", user.Roles.ToString());
+            claims.Add(_claim);
+
             //claims.Add(_claim);
             //_claim = new Claim("EMAILID", user.strEmail);
             //claims.Add(_claim);

@@ -9,6 +9,10 @@ using LokwaInnovation.DBContext;
 using LokwaInnovation.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Net;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace LokwaInnovation.Controllers
 {
@@ -54,7 +58,7 @@ namespace LokwaInnovation.Controllers
         }
 
 
-
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult LoginUser(Log_in user)
         {
             if (user.Phone_number == null || user.Password == null)
@@ -65,7 +69,7 @@ namespace LokwaInnovation.Controllers
             else
             {
                 var pass = user.Password;
-
+              
                 TokenProvider TokenProvider = new TokenProvider(_context);
 
                 var userToken = TokenProvider.LoginUser(user.Phone_number, user.Password);
@@ -80,7 +84,15 @@ namespace LokwaInnovation.Controllers
                     HttpContext.Session.SetString("JWToken", userToken);
                     TempData["Error"] = "Successfully loged in!";
 
-                    return Redirect("~/Home/index");
+                   // var blog = _context.Log_in
+                   //.Where(b => b.Phone_number.ToString() == user.Phone_number)
+                   //.FirstOrDefault();
+                    
+
+                    //HttpContext.Session.SetString("Roles", blog.Roles.ToString());
+                    //return Content(HttpContext.Session.GetString("Roles"));
+
+                    return Redirect("~/Home/redd");
 
                 }
             }
@@ -93,8 +105,25 @@ namespace LokwaInnovation.Controllers
             //return Redirect("~/Tenders/Master");
 
         }
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
+        public IActionResult redd()
+        {
+
+            var roles = User.Identity.Name;
+            //var log_in =  _context.Log_in.FindAsync(roles);
+            ////if(log_in.Roles==1)
+            //var blog = _context.Log_in
+            //       .Where(b => b.User_ID.ToString() == roles)
+            //       .FirstOrDefault();
+            //return log_in.r.ToString() == "1" ? Redirect("~/Home/Index") : Redirect("~/Log_in/Log_in");
+
+            return Content(roles);
+        }
+
         public IActionResult Logoff()
         {
+
             HttpContext.Session.Clear();
             return Redirect("~/Home/Index");
 
@@ -134,6 +163,9 @@ namespace LokwaInnovation.Controllers
 
             if (ModelState.IsValid)
             {
+
+                
+
 
                 bool clientUsernameExists = _context.Log_in.Any(x => x.Phone_number == log_in.Phone_number);
                 if (clientUsernameExists)
