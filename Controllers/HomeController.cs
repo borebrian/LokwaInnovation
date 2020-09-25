@@ -45,33 +45,47 @@ namespace LokwaInnovation.Controllers
 
         }
 
+
+
         [Authorize]
         public IActionResult Dashboard()
         {
 
+            //BIND VISITS
+            var visits = _context.Visits_counter.Count();
+            ViewBag.Visits = visits.ToString();
 
+            //BIND CLIENTS
+            var clients = _context.Log_in.Where(x=>x.Roles==2).Count();
+            ViewBag.clients = clients.ToString();
 
+            //BIND CLIENTS
+            var faqs = _context.AnonymousMessages.Where(x => x.status).Count();
+            ViewBag.faqs = faqs.ToString();
             return View();
-        
+
         }
-            [Authorize]
+        [AllowAnonymous]
         public IActionResult Index()
         {
+
+
           
-
-            var email = User.Identity.Name;
-
-            var bigCities = new List<Claim>();
-            if (email == null)
+            var author = new Visits_counter
             {
-                return Content(null);
+                Date = DateTime.Now.ToString(),
+                Role = "Anonymous",
+              
+    
+            };
+            _context.Add(author);
+            _context.SaveChanges();
 
-            }
-            else
-            {
-                return Content(email.Count().ToString());
+            return View();
 
-            }
+             
+
+            
            
         }
         [HttpPost]

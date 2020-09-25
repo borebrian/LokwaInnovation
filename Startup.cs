@@ -95,7 +95,7 @@ namespace Lubricants
             });
             app.UseHttpsRedirection();
             //redirect to login id not autenticated or invalid page..
-            app.UseStatusCodePagesWithReExecute("/Home/Index", "?statusCode={0}");
+            app.UseStatusCodePagesWithReExecute("/Log_in/Log_in", "?statusCode={0}");
             app.UseStaticFiles();
             app.UseAuthentication();
 

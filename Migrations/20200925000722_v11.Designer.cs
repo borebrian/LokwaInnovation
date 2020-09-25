@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LokwaInnovation.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20200924021540_v6")]
-    partial class v6
+    [Migration("20200925000722_v11")]
+    partial class v11
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,6 +39,9 @@ namespace LokwaInnovation.Migrations
                     b.Property<string>("Subject")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("status")
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("ID");
 
@@ -77,6 +80,25 @@ namespace LokwaInnovation.Migrations
                     b.HasKey("User_ID");
 
                     b.ToTable("Log_in");
+                });
+
+            modelBuilder.Entity("LokwaInnovation.Models.Visits_counter", b =>
+                {
+                    b.Property<int>("Visit_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Visit_id");
+
+                    b.ToTable("Visits_counter");
                 });
 #pragma warning restore 612, 618
         }

@@ -38,6 +38,9 @@ namespace LokwaInnovation.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<bool>("status")
+                        .HasColumnType("tinyint(1)");
+
                     b.HasKey("ID");
 
                     b.ToTable("AnonymousMessages");
@@ -75,6 +78,25 @@ namespace LokwaInnovation.Migrations
                     b.HasKey("User_ID");
 
                     b.ToTable("Log_in");
+                });
+
+            modelBuilder.Entity("LokwaInnovation.Models.Visits_counter", b =>
+                {
+                    b.Property<int>("Visit_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("Visit_id");
+
+                    b.ToTable("Visits_counter");
                 });
 #pragma warning restore 612, 618
         }

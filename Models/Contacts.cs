@@ -27,7 +27,11 @@ namespace LokwaInnovation.Models
         public string Date { get; set; }
         [Required]
         [Display(Name = "Message:", Prompt = "Message")]
-        public string Message { get; set; }
+        public string Message { get; set; } 
+        
+        [Required]
+      
+        public  Boolean status { get; set; }= false;
 
         [Key]
         [Required]
