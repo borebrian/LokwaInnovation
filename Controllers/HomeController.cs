@@ -10,6 +10,7 @@ using LokwaInnovation.DBContext;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Security.Claims;
+using Lubes.Models;
 
 namespace LokwaInnovation.Controllers
 {
@@ -45,11 +46,35 @@ namespace LokwaInnovation.Controllers
 
         }
 
+        public IActionResult PDF_ReaderTest()
+        {
+            return View();
+
+        }
 
 
-        [Authorize]
+            [Authorize]
         public IActionResult Dashboard()
         {
+
+
+            var  itemlist = _context.PDF_Documents.ToList();
+            ViewBag.itemlist = itemlist;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             //BIND VISITS
             var visits = _context.Visits_counter.Count();
@@ -65,6 +90,14 @@ namespace LokwaInnovation.Controllers
             return View();
 
         }
+
+        //[ChildActionOnly]
+        public ActionResult RenderMenu()
+        {
+            return PartialView("_MenuBar");
+        }
+
+
         [AllowAnonymous]
         public IActionResult Index()
         {

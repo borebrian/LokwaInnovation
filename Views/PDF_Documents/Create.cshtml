@@ -1,0 +1,120 @@
+﻿@model Lubes.Models.PDF_Documents
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card card-1">
+    <div class="card-body">
+        <h6><img src="/images/System/documents.png" class="iconMideum" alt="" /> &nbsp;&nbsp;&nbsp;Add new item category</h6><br />
+        <h6>Upload only PDF files</h6>
+
+    </div>
+
+</div>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <div class="card card-1">
+            <div class="card-body">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Document_name" class="control-label"></label>
+                        <input asp-for="Document_name" class="form-control" />
+                        <span asp-validation-for="Document_name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Document_description" class="control-label"></label>
+                        <input asp-for="Document_description" class="form-control" />
+                        <span asp-validation-for="Document_description" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="Cover_image" class="control-label"></label>
+                        <div class="custom-file">
+                            <input style="margin:unset" asp-for="Cover_image" class="custom-file-input" accept="application/pdf" id="customFile">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                        <span asp-validation-for="Cover_image" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Document" class="control-label"></label>
+                        <div class="custom-file">
+                            <input style="margin:unset" asp-for="Document" accept="application/pdf" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                        <span asp-validation-for="Document" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        @if (@TempData["book"] != null)
+        {
+            <div class="card card-1">
+                <div class="card-header bg-success text-white">
+                    <h6><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;&nbsp;Success! Book added successfully</h6>
+                </div>
+                <div class="card-header  ">
+                    <h6>Book content</h6>
+                </div>
+                <div class="card-header " style="height:1000px;padding:0px">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12" style="height:1000px">
+                            <iframe id="pdf-js-viewer" src="~/web/viewer.html?file=/@TempData["book"]" title="webviewer" frameborder="0"  style="width:100%;height:100%;"></iframe>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+
+        }
+    </div>
+</div>
+<footer class="border-top footer text-muted">
+    
+    @section scripts1{
+        <script type="text/javascript">
+
+            // Add the following code if you want the name of the file appear on select
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+            //document.getElementById("divId").addEventListener("contextmenu ", function () {
+            //    console.log("Right Click");
+            //    return false;
+        </script>
+    }
+    @section scripts5{
+
+        <script type="text/javascript">
+            $('#demo').bind('contextmenu', function (e) {
+                return false;
+            });
+        </script>
+    }
+    @section scripts23{
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#demo").on("contextmenu", function () {
+                    return false;
+                });
+            }); 
+        </script>
+    }
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+

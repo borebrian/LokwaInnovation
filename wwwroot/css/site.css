@@ -13,7 +13,9 @@ a.navbar-brand {
   text-align: center;
   word-break: break-all;
 }
-
+.card-1 {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -41,7 +43,31 @@ html {
     font-size: 16px;
   }
 }
+.customeheader {
+    border-radius: 30px;
+    padding: 5px;
+}
 
+.customebody {
+    /*border-radius: 8px;*/
+    padding: 5px;
+}
+.iconMideum {
+    height: 40px;
+    width: 40px;
+}
+.card-2 {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    margin: 5px;
+    display: inline-block;
+   /* width:100px;*/
+    /*border-radius:8px;*/
+}
+.scrolling-wrapper {
+    overflow: scroll;
+    scrollbar-3dlight-color: aqua;
+    white-space: nowrap;
+}
 .border-top {
   border-top: 1px solid #e5e5e5;
 }

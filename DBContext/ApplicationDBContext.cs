@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Lubes.Models;
 
 namespace LokwaInnovation.DBContext
 {
@@ -21,8 +22,11 @@ namespace LokwaInnovation.DBContext
 
         public DbSet<Contacts> AnonymousMessages { get; set; }
         public DbSet<Log_in> Log_in { get; set; }
+        public DbSet<PDF_Documents> PDF_Documents { get; set; }
+
         public DbSet<Visits_counter> Visits_counter { get; set; }
 
+       
 
 
 
