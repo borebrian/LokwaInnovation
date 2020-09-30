@@ -11,9 +11,8 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ID" />
             <div class="form-group">
                 <label asp-for="Document_name" class="control-label"></label>
                 <input asp-for="Document_name" class="form-control" />
@@ -21,28 +20,36 @@
             </div>
             <div class="form-group">
                 <label asp-for="Document_description" class="control-label"></label>
-                <input asp-for="Document_description" class="form-control" />
+
+                <textarea rows="5" cols="40" asp-for="Document_description" class="form-control"></textarea>
                 <span asp-validation-for="Document_description" class="text-danger"></span>
             </div>
+
+
             <div class="form-group">
-                <label asp-for="Book_url" class="control-label"></label>
-                <input asp-for="Book_url" class="form-control" />
-                <span asp-validation-for="Book_url" class="text-danger"></span>
+                <label asp-for="Cover_image" class="control-label"></label>
+                <div class="custom-file">
+                    <input style="margin:unset" asp-for="Cover_image" class="custom-file-input" accept="image/x-png,image/gif,image/jpeg" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span asp-validation-for="Cover_image" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Cover_url" class="control-label"></label>
-                <input asp-for="Cover_url" class="form-control" />
-                <span asp-validation-for="Cover_url" class="text-danger"></span>
+                <label asp-for="Document" class="control-label"></label>
+                <div class="custom-file">
+                    <input style="margin:unset" asp-for="Document" accept="application/pdf" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span asp-validation-for="Document" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Date_modified" class="control-label"></label>
-                <input asp-for="Date_modified" class="form-control" />
-                <span asp-validation-for="Date_modified" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="fa fa-cloud-upload" aria-hidden="true"></i>&nbsp;Submit</button>
+
+                <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fa fa-list" aria-hidden="true"></i> &nbsp;List of PDF</a>
+
             </div>
         </form>
+
     </div>
 </div>
 

@@ -2,12 +2,16 @@
 for details on configuring this project to bundle and minify static web assets. */
 @font-face {
     font-family: "best";
-    src: url(/Fonts/best.ttf);
+    src: url(/Fonts/baloo.ttf);
     /*  src: url("CustomFont.woff") format("woff"), url("CustomFont.otf") format("opentype"), url("CustomFont.svg#filename") format("svg");*/
 }
 body{
     font-family:best;
     font-size:15px;
+}
+.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
 }
 a.navbar-brand {
   white-space: normal;
@@ -16,6 +20,7 @@ a.navbar-brand {
 }
 .card-1 {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background-image:url(/wwwroot/images/System/CustBG.svg)
 }
 /* Provide sufficient contrast against white background */
 a {
@@ -33,7 +38,12 @@ a {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+.color {
+   color: #ed563b
+}
+.custBG{
 
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

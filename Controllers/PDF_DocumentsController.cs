@@ -9,6 +9,7 @@ using LokwaInnovation.DBContext;
 using Lubes.Models;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using System.Runtime.InteropServices;
 
 namespace LokwaInnovation.Controllers
 {
@@ -26,9 +27,22 @@ namespace LokwaInnovation.Controllers
         }
 
         // GET: PDF_Documents
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([Optional] string Values)
         {
-            return View(await _context.PDF_Documents.ToListAsync());
+            if (Values == null)
+            {
+                return View(await _context.PDF_Documents.ToListAsync());
+            }
+            else
+            {
+
+                var posts =  _context.PDF_Documents.Where(w => w.Document_name.Contains(Values)).ToList();
+                int docCount = posts.Count();
+                 ViewBag.SeachResults = posts;
+                 ViewBag.count = docCount;
+                @ViewBag.SearchValue = Values;
+                return View();
+            }
         }
 
         // GET: PDF_Documents/Details/5
@@ -50,6 +64,24 @@ namespace LokwaInnovation.Controllers
         }
 
         // GET: PDF_Documents/Create
+        public async Task<IActionResult> PDF_Content(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var pDF_Documents = await _context.PDF_Documents.FindAsync(id);
+            if (pDF_Documents == null)
+            {
+                return NotFound();
+            }
+            ViewBag.id = id;
+            var listOfdocs = _context.PDF_Documents.ToList();
+            ViewBag.relatedItems = listOfdocs;
+            return View(pDF_Documents);
+        }
+
         public IActionResult Create()
         {
           
@@ -198,4 +230,5 @@ namespace LokwaInnovation.Controllers
             return _context.PDF_Documents.Any(e => e.ID == id);
         }
     }
+
 }
