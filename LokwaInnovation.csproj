@@ -23,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Views\ChartBox\" />
     <Folder Include="wwwroot\Cover_images\" />
-    <Folder Include="wwwroot\PDF_Files\" />
     <Folder Include="wwwroot\web\New folder\" />
   </ItemGroup>
 

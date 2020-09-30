@@ -99,6 +99,9 @@ namespace LokwaInnovation.Controllers
                         _context.Add(pdfdoc);
                         await _context.SaveChangesAsync();
                         TempData["book"] = docfolder;
+                        TempData["name"] = pDF_Documents.Document_name;
+                        TempData["description"] = pDF_Documents.Document_description;
+                        TempData["cover"] = coverfolder;
 
                     }
                 }

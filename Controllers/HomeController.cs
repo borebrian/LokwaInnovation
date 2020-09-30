@@ -53,7 +53,7 @@ namespace LokwaInnovation.Controllers
         }
 
 
-            [Authorize]
+            [AllowAnonymous]
         public IActionResult Dashboard()
         {
 
