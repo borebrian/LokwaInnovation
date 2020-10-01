@@ -79,6 +79,7 @@ namespace LokwaInnovation.Controllers
             ViewBag.id = id;
             var listOfdocs = _context.PDF_Documents.ToList();
             ViewBag.relatedItems = listOfdocs;
+            
             return View(pDF_Documents);
         }
 

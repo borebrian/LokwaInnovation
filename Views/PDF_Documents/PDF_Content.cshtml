@@ -19,86 +19,125 @@ else
     <div class="card-header   alert-danger">
         <h6><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp;Book content</h6>
     </div>
-    <!--<div class="card-header  ">
-        <div class="row">
-            <div class="col-md-4 col-lg-4 col-sm-4">
-                <div class="card mb-4 shadow-sm">
-                    <img class="card-img-top" src="/@Html.DisplayFor(model => model.Cover_url)" alt="Card image cap" style="height:150px;">
-                    <div class="card-body">
-                        <p class="card-title" style="font-family:7px;">
-                            @Html.DisplayFor(model => model.Document_name)
-                        </p>
-                        <p class="card-text">
-                            @Html.DisplayFor(model => model.Document_description)
-                        </p>-->
-    @*<div class="btn-group">*@
-    <!--<a href="#" class="btn btn-sm btn-outline-secondary"><i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;Add refference</a>
-    <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp;Modify</a>
-    <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fa fa-trash" aria-hidden="true"></i> &nbsp;Delete</a>-->
-    @*</div>*@
-    <!--</div>
-                </div>
-            </div>
-        </div>
-    </div>-->
+    <div class="card-header  ">
+        <h6><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;@Html.DisplayFor(model => model.Document_description)</h6>
 
-
-    <div class="card-header ">
-
-        <div class="row">
-            <div class="col-md-12 col-lg-12" style="height:1000px">
-                <iframe id="pdf-js-viewer" src="~/web/viewer.html?file=/@Html.DisplayFor(model => model.Book_url)" title="webviewer" frameborder="0" style="width:100%;height:100%;"></iframe>
-            </div>
-
-        </div>
     </div>
-    <div class="card-header ">
-        <h6 class="color"><i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp;&nbsp;Refferences</h6>
-    </div>
-    <div class="card-header ">
-
-        </div>
-        <div class="card-header " style="padding:0px">
+        <div class="card-header p-0 ">
 
             <div class="row">
+                <div class="col-md-12 col-lg-12" style="height:500px">
+                    <iframe id="pdf-js-viewer" src="~/web/viewer.html?file=/@Html.DisplayFor(model => model.Book_url)" title="webviewer" frameborder="0" style="width:100%;height:100%;"></iframe>
+                </div>
 
-                <div class="col-md-3 col-lg-3 col-sm-3">
+            </div>
+        </div>
 
-                    <div class="card m-3" style="width:150px;border-radius:15px;">
-                        <img class="card-img-top" src="/@Html.DisplayFor(model => model.Cover_url)" alt="Card image" style="        height: 150px;
+        <div class="card-header ">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                    <h6 class="color"><i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp;&nbsp;Related Refferences</h6>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                    @*<button class="btn  float-right"
+                            type="submit">
+                        Go to refference &nbsp;<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                    </button>*@
+
+                    <a class="btn  float-right" asp-action="Create" asp-controller="PDF_Refference"  asp-route-id="@Html.DisplayFor(model => model.ID)">Add reffernce &nbsp;<i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                </div>
+            </div>
+           
+           
+        </div>
+        <div class="card-header p-0">
+            <div class="scrolling-wrapper p-0">
+                @{
+                    if (ViewBag.relatedItems != null)
+                    {
+                        @foreach (var item in ViewBag.relatedItems)
+                        {
+                            <div class="card m-3  cardd m-0" style="width:150px;border-radius:15px;">
+                                <img class="card-img-top" src="/@item.Cover_url" alt="Card image" style="        height:150px;
+
         width: 150px;
         border-radius: 15px;
 ">
-                        <div class="card-img-overlay" style="        background-color: black;
+                                <div class="card-img-overlay" style="        background-color: black;
         opacity: 0.7;
         width: 150px;
         border-radius: 15px;
 ">
-                            <h6 class="card-title text-light">John Doe</h6>
-                            <p class="card-text text-light" style="white-space: nowrap; width: 150px; overflow: hidden; text-overflow: ellipsis;">Some example text.</p>
-                            <a href="#" class="btn btn-light btn-sm">See Profile</a>
-                        </div>
-                    </div>
-                </div>
+                                    <h6 class="card-title text-light">John Doe</h6>
+                                    <a href="javascript:void(0)" onclick="getReport('/@item.Cover_url'); return false;" class="btn btn-light btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;View</a>
 
+                                </div>
+                            </div>
+
+
+
+                        }
+
+
+                    }
+                }
+            </div>
+        </div>
+        <div class="card-header ">
+            <h6 class="color"><i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp;&nbsp;Related Books</h6>
+        </div>
+        <div class="card-header " style="padding:0px">
+            <div class="scrolling-wrapper p-0">
+
+                @if (ViewBag.relatedItems != null)
+                {
+                    @foreach (var item in ViewBag.relatedItems)
+                    {
+
+                        <div class="card m-3 cardd" style="width:150px;border-radius:15px;">
+                            <img class="card-img-top" src="/@item.Cover_url" alt="Card image" style="        height: 150px;
+        width: 150px;
+        border-radius: 15px;
+">
+                            <div class="card-img-overlay" style="        background-color: black;
+        opacity: 0.7;
+        width: 150px;
+        border-radius: 15px;
+">
+                                <h6 class="card-title text-light">@item.Document_name</h6>
+                                <p class="card-text text-light" style="white-space: nowrap; width: 100px; overflow: hidden; text-overflow: ellipsis;">Some example text.</p>
+                                <a class="btn btn-light btn-sm" asp-action="PDF_Content" asp-controller="PDF_Documents" asp-route-id="@item.ID" text-light"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Read</a>
+                            </div>
+                        </div>
+
+                    }
+
+                }
             </div>
         </div>
     </div>
-    }
-<script language="javascript">
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-lg" style="height:100%;width:100%">
+            <div class="modal-content">
+                <img id="enlarger" src="" style="height:100%;width:100%" />
+            </div>
+            <div class="modal-content">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times-circle" aria-hidden="true"></i> &nbsp;Close</button>
+            </div>
+            </div>
+        </div>
+}
+@section scripts26{
+    <script type="text/javascript">
+        function getReport(id1) {
+            //alert(id1);
+            document.getElementById("enlarger").src = id1;
 
-		$(document).ready(function() {
-			$("#gallery_output img").not(":first").hide();
+            $("#myModal").modal();
 
-			$("#gallery a").click(function() {
-				if ( $("#" + this.rel).is(":hidden") ) {
-					$("#gallery_output img").slideUp();
-					$("#" + this.rel).slideDown();
-				}
-			});
-		});
-
-</script>
+        }
+    </script>
 
 
+}
 

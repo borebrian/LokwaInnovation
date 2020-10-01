@@ -25,6 +25,7 @@ namespace LokwaInnovation.DBContext
         public DbSet<PDF_Documents> PDF_Documents { get; set; }
 
         public DbSet<Visits_counter> Visits_counter { get; set; }
+        public DbSet<PDF_Refference> Pdf_refference { get; set; }
 
        
 
