@@ -135,12 +135,12 @@ namespace LokwaInnovation.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Date_modified")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Doc_id")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Doc_id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Refference_url")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");

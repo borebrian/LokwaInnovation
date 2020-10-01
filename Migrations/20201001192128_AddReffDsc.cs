@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LokwaInnovation.Migrations
 {
-    public partial class v11 : Migration
+    public partial class AddReffDsc : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,6 +43,38 @@ namespace LokwaInnovation.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PDF_Documents",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Document_name = table.Column<string>(maxLength: 50, nullable: false),
+                    Document_description = table.Column<string>(maxLength: 300, nullable: false),
+                    Book_url = table.Column<string>(nullable: true),
+                    Cover_url = table.Column<string>(nullable: true),
+                    Date_modified = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PDF_Documents", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Pdf_refference",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Doc_id = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    Refference_url = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pdf_refference", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Visits_counter",
                 columns: table => new
                 {
@@ -64,6 +96,12 @@ namespace LokwaInnovation.Migrations
 
             migrationBuilder.DropTable(
                 name: "Log_in");
+
+            migrationBuilder.DropTable(
+                name: "PDF_Documents");
+
+            migrationBuilder.DropTable(
+                name: "Pdf_refference");
 
             migrationBuilder.DropTable(
                 name: "Visits_counter");

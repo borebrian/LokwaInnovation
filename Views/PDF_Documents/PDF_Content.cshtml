@@ -21,8 +21,14 @@ else
     </div>
     <div class="card-header  ">
         <h6><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;@Html.DisplayFor(model => model.Document_description)</h6>
-
-    </div>
+     
+     
+           
+     
+            
+            
+         
+        </div>
         <div class="card-header p-0 ">
 
             <div class="row">
@@ -40,11 +46,14 @@ else
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                     @*<button class="btn  float-right"
-                            type="submit">
-                        Go to refference &nbsp;<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-                    </button>*@
+                type="submit">
+            Go to refference &nbsp;<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+        </button>*@
 
-                    <a class="btn  float-right" asp-action="Create" asp-controller="PDF_Refference"  asp-route-id="@Html.DisplayFor(model => model.ID)">Add reffernce &nbsp;<i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                    <a class="btn  float-right" asp-action="Create" asp-controller="PDF_Refference" asp-route-id="@Model.ID">Add reffernce &nbsp;<i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+
+
+                 
                 </div>
             </div>
            
@@ -127,8 +136,8 @@ else
             </div>
         </div>
 }
-@section scripts26{
-    <script type="text/javascript">
+@*section scripts26{*@
+    @*<script type="text/javascript">
         function getReport(id1) {
             //alert(id1);
             document.getElementById("enlarger").src = id1;
@@ -136,7 +145,7 @@ else
             $("#myModal").modal();
 
         }
-    </script>
+    </script>*@
 
 
 }

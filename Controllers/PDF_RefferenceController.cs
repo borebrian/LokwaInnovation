@@ -10,6 +10,7 @@ using Lubes.Models;
 using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace LokwaInnovation.Controllers
 {
@@ -24,7 +25,7 @@ namespace LokwaInnovation.Controllers
             _context = context;
             _webHostEnvironment = webHostEnvironment;
         }
-     
+
 
 
         // GET: PDF_Refference
@@ -52,20 +53,25 @@ namespace LokwaInnovation.Controllers
         }
 
         // GET: PDF_Refference/Create
-        public IActionResult Create( [Optional] String id)
+        public IActionResult Create([Optional] String id)
         {
             if (id == null)
             {
                 TempData["statusMessage"] = "You must add a PDF file first.";
                 TempData["status"] = "Warning!";
+
                 return RedirectToAction("Create", "PDF_Documents");
             }
             else
             {
+                HttpContext.Session.SetString("docid", id.ToString());
+                var posts = _context.Pdf_refference.Where(w => w.Doc_id.ToString()== HttpContext.Session.GetString("docid")).ToList();
+                ViewBag.relatedPost = posts;
+
                 ViewBag.id = id;
                 return View();
             }
-           
+
         }
 
         // POST: PDF_Refference/Create
@@ -73,16 +79,37 @@ namespace LokwaInnovation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Doc_id,Refference_url,Date_modified")] PDF_Refference pDF_Refference)
+        public async Task<IActionResult> Create( PDF_Refference pDF_Refference, [Optional] int id)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(pDF_Refference);
+
+                string refcover = "Refferences/" + Guid.NewGuid().ToString() + pDF_Refference.Image.FileName;
+                string serverFolder1 = Path.Combine(_webHostEnvironment.WebRootPath, refcover);
+                await pDF_Refference.Image.CopyToAsync(new FileStream(serverFolder1, FileMode.Create));
+
+
+                PDF_Refference pdfdoc = new PDF_Refference
+                {
+                    Doc_id = pDF_Refference.Doc_id,
+                    Description = pDF_Refference.Description,
+                    Refference_url = refcover,
+                    Date_modified = DateTime.Now.ToString()
+                };
+                _context.Add(pdfdoc);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                ViewBag.status = "Refference has been uploaded successfully!";
+                ViewBag.imageURL = "/" + refcover;
+                ViewBag.Description = pDF_Refference.Description;
             }
-            return View(pDF_Refference);
-        }
+
+            var posts = _context.Pdf_refference.Where(w => w.Doc_id.ToString() == HttpContext.Session.GetString("docid")).ToList();
+            ViewBag.relatedPost = posts;
+            return View();
+        
+    }
+        
 
         // GET: PDF_Refference/Edit/5
         public async Task<IActionResult> Edit(int? id)
