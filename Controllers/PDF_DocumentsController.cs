@@ -10,6 +10,9 @@ using Lubes.Models;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Routing.Template;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace LokwaInnovation.Controllers
 {
@@ -17,6 +20,7 @@ namespace LokwaInnovation.Controllers
     {
         private readonly ApplicationDBContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IWebHostEnvironment _webHostEnvironment1;
 
 
 
@@ -24,6 +28,7 @@ namespace LokwaInnovation.Controllers
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            _webHostEnvironment1 = webHostEnvironment;
         }
 
         // GET: PDF_Documents
@@ -36,10 +41,10 @@ namespace LokwaInnovation.Controllers
             else
             {
 
-                var posts =  _context.PDF_Documents.Where(w => w.Document_name.Contains(Values)).ToList();
+                var posts = _context.PDF_Documents.Where(w => w.Document_name.Contains(Values)).ToList();
                 int docCount = posts.Count();
-                 ViewBag.SeachResults = posts;
-                 ViewBag.count = docCount;
+                ViewBag.SeachResults = posts;
+                ViewBag.count = docCount;
                 @ViewBag.SearchValue = Values;
                 return View();
             }
@@ -79,13 +84,13 @@ namespace LokwaInnovation.Controllers
             ViewBag.id = id;
             var listOfdocs = _context.PDF_Documents.ToList();
             ViewBag.relatedItems = listOfdocs;
-            
+
             return View(pDF_Documents);
         }
 
         public IActionResult Create()
         {
-          
+
             return View();
         }
 
@@ -94,9 +99,9 @@ namespace LokwaInnovation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( PDF_Documents pDF_Documents)
+        public async Task<IActionResult> Create(PDF_Documents pDF_Documents)
         {
-            
+
             if (ModelState.IsValid)
             {
                 if (pDF_Documents.Document != null)
@@ -117,7 +122,6 @@ namespace LokwaInnovation.Controllers
                         string coverfolder = "Cover_images/" + Guid.NewGuid().ToString() + pDF_Documents.Cover_image.FileName;
                         string serverFolder1 = Path.Combine(_webHostEnvironment.WebRootPath, coverfolder);
                         await pDF_Documents.Cover_image.CopyToAsync(new FileStream(serverFolder1, FileMode.Create));
-
 
 
 
@@ -167,7 +171,7 @@ namespace LokwaInnovation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Document_name,Document_description,Book_url,Cover_url,Date_modified")] PDF_Documents pDF_Documents)
+        public async Task<IActionResult> Edit(int id, PDF_Documents pDF_Documents)
         {
             if (id != pDF_Documents.ID)
             {
@@ -178,8 +182,55 @@ namespace LokwaInnovation.Controllers
             {
                 try
                 {
-                    _context.Update(pDF_Documents);
-                    await _context.SaveChangesAsync();
+                    int idd = id;
+                    var pDF_Documents0 = await _context.PDF_Documents.FindAsync(id);
+                    var pDF_Documents1 = await _context.PDF_Documents.FindAsync(idd);
+                    var pDF_Documents2 = await _context.PDF_Documents.FindAsync(id);
+
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath, pDF_Documents2.Book_url);
+
+                    System.IO.File.Delete(path);
+
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    string docfolder = "PDF_Documents/" + Guid.NewGuid().ToString() + pDF_Documents.Document.FileName;
+                    string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, docfolder);
+                    await pDF_Documents.Document.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+
+
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    var coverPath = Path.Combine(_webHostEnvironment1.WebRootPath, pDF_Documents1.Cover_url);
+                    System.IO.File.Delete(coverPath);
+
+
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    string coverfolder = "Cover_images/" + Guid.NewGuid().ToString() + pDF_Documents.Cover_image.FileName;
+                    string serverFolder1 = Path.Combine(_webHostEnvironment.WebRootPath, coverfolder);
+                    await pDF_Documents.Cover_image.CopyToAsync(new FileStream(serverFolder1, FileMode.Create));
+
+
+                    var entity = _context.PDF_Documents.FirstOrDefault(item => item.ID == id);
+                    if (entity != null)
+                    {
+                        entity.Book_url = docfolder;
+
+                        entity.Cover_url = coverfolder;
+                        entity.Date_modified = DateTime.Now.ToString();
+                        entity.Document_description = pDF_Documents.Document_description;
+                        entity.Document_name = pDF_Documents.Document_name;
+
+                        await _context.SaveChangesAsync();
+
+
+
+
+
+                    }
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -221,9 +272,42 @@ namespace LokwaInnovation.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var pDF_Documents = await _context.PDF_Documents.FindAsync(id);
+            var pDF_Documents1 = await _context.PDF_Documents.FindAsync(id);
+            var pDF_Documents2 = await _context.PDF_Documents.FindAsync(id);
+
             _context.PDF_Documents.Remove(pDF_Documents);
             await _context.SaveChangesAsync();
+
+            var ititems = _context.Pdf_refference.Where(m => m.Doc_id == id);
+            _context.RemoveRange(ititems);
+            _context.SaveChanges();
+            TempData["status"] = " and all associated refference files has been deleted successfully!";
+
+            var path = Path.Combine(this._webHostEnvironment.WebRootPath, pDF_Documents2.Book_url);
+
+            //if (System.IO.File.Exists(path))
+            //{
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            System.IO.File.Delete(path);
+
+            //}
+
+
+            //return Content(path);
+
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            var coverPath = Path.Combine(this._webHostEnvironment1.WebRootPath, pDF_Documents1.Cover_url);
+            //if (System.IO.File.Exists(path))
+            //{
+            System.IO.File.Delete(coverPath);
+
+            //}
+            ViewBag.deleteSuccess = "true";
             return RedirectToAction(nameof(Index));
+
         }
 
         private bool PDF_DocumentsExists(int id)
@@ -231,5 +315,5 @@ namespace LokwaInnovation.Controllers
             return _context.PDF_Documents.Any(e => e.ID == id);
         }
     }
-
+   
 }

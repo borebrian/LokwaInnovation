@@ -5,14 +5,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-        <nav aria-label="breadcrumb card-1">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item "><a asp-action="Dashboard" asp-controller="Home" class="color">Dashboard</a></li>
-                <li class="breadcrumb-item"><a asp-action="index" asp-controller="PDF_Documents" class="color">Documents</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Create</li>
-            </ol>
-        </nav>
-    
+<nav aria-label="breadcrumb card-1">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a asp-action="Dashboard" asp-controller="Home" class="color">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="index" asp-controller="PDF_Documents" class="color">Documents</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Create</li>
+    </ol>
+</nav>
+@if (TempData["status"] != null)
+{
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>@TempData["status"]!</strong> @TempData["statusMessage"]
+    </div>
+}
+
 
 
 
@@ -31,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Document_description" class="control-label"></label>
-                       
+
                         <textarea rows="5" cols="40" asp-for="Document_description" class="form-control"></textarea>
                         <span asp-validation-for="Document_description" class="text-danger"></span>
                     </div>
@@ -63,61 +70,62 @@
         </div>
     </div>
 
-    <div class="col-md-8 mt-3" >
+    <div class="col-md-8 mt-3">
         @if (@TempData["book"] != null)
         {
-        <div class="card card-1">
-            <div class="card-header   alert-primary">
-                <h6><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;&nbsp;Success! PDF uploaded  successfully</h6>
-            </div>
+            <div class="card card-1">
+                <div class="card-header   alert-primary">
+                    <h6><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;&nbsp;Success! PDF uploaded  successfully</h6>
+                </div>
 
 
-            <div class="card-header  ">
-                <div class="row">
-                    <div class="col-md-4 col-lg-4 col-sm-4">
-                        <div class="card mb-4 shadow-sm">
-                            <img class="card-img-top" src="/@TempData["cover"]" alt="Card image cap" style="height:150px;">
-                            <div class="card-body">
-                                <p class="card-title">
-                                    @TempData["name"]
+                <div class="card-header  ">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4 col-sm-4">
+                            <div class="card mb-4 shadow-sm">
+                                <img class="card-img-top" src="/@TempData["cover"]" alt="Card image cap" style="height:150px;">
+                                <div class="card-body">
+                                    <p class="card-title">
+                                        @TempData["name"]
 
-                                </p>
-                                <p class="card-text">
-                                    @TempData["description"]
+                                    </p>
+                                    <p class="card-text">
+                                        @TempData["description"]
 
-                                </p>
-                                @*<div class="btn-group">*@
-                                    <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;Add refference</a>  
-                                <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp;Modify</a>
-                                <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fa fa-trash" aria-hidden="true"></i> &nbsp;Delete</a>
-                                @*</div>*@
+                                    </p>
+                                    @*<div class="btn-group">*@
+                                    <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;Add refference</a>
+                                    <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp;Modify</a>
+                                    <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fa fa-trash" aria-hidden="true"></i> &nbsp;Delete</a>
+                                    @*</div>*@
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-header bg-dark text-white">
-               
-               
-            </div>
-            <div class="card-header " style="height:1000px;padding:0px">
-                <div class="row">
-                    <div class="col-md-12 col-lg-12" style="height:1000px">
-                        <iframe id="pdf-js-viewer" src="~/web/viewer.html?file=/@TempData["book"]" title="webviewer" frameborder="0" style="width:100%;height:100%;"></iframe>
-                    </div>
+                <div class="card-header bg-dark text-white">
+
 
                 </div>
+                <div class="card-header " style="height:1000px;padding:0px">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12" style="height:1000px">
+                            <iframe id="pdf-js-viewer" src="~/web/viewer.html?file=/@TempData["book"]" title="webviewer" frameborder="0" style="width:100%;height:100%;"></iframe>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-        </div>
 
 
-            }
-            else{
+        }
+        else
+        {
 
             <div class="card card-1">
                 @*<div class="card-header bg-success text-white">
-                <h6><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;&nbsp;Success! Book added successfully</h6>
-            </div>*@
+                        <h6><i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;&nbsp;Success! Book added successfully</h6>
+                    </div>*@
                 <div class="card-header  ">
                     <div class="row">
                         <div class="col-lg-6  col-md-6 col-sm-6 col-6">
@@ -126,19 +134,19 @@
                         </div>
                         <div class="col-lg-6  col-md-6 col-sm-6 col-6 text-right">
                             <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                
+
 
                                 <div class="btn-group" role="group">
-                                 
-                                    <a  class="btn btn-secondary" asp-action="Index" asp-controller="PDF_Documents"><i class="fa fa-list" aria-hidden="true"></i> &nbsp;PDF List</a>
+
+                                    <a class="btn btn-secondary" asp-action="Index" asp-controller="PDF_Documents"><i class="fa fa-list" aria-hidden="true"></i> &nbsp;PDF List</a>
 
                                 </div>
                             </div>
                         </div>
-                        </div>
-                      
-                     
                     </div>
+
+
+                </div>
                 <div class="card-header " style="height:1000px;padding:0px">
                     <div class="row">
                         <div class="col-md-12 col-lg-12" style="height:1000px">
@@ -148,43 +156,43 @@
                     </div>
                 </div>
             </div>
-            }
-        </div>
+        }
+    </div>
 </div>
 
-    
-    @section scripts1{
-        <script type="text/javascript">
 
-            // Add the following code if you want the name of the file appear on select
-            $(".custom-file-input").on("change", function () {
-                var fileName = $(this).val().split("\\").pop();
-                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-            });
-            //document.getElementById("divId").addEventListener("contextmenu ", function () {
-            //    console.log("Right Click");
-            //    return false;
-        </script>
-    }
-    @section scripts5{
+@section scripts1{
+    <script type="text/javascript">
 
-        <script type="text/javascript">
-            $('#demo').bind('contextmenu', function (e) {
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+        //document.getElementById("divId").addEventListener("contextmenu ", function () {
+        //    console.log("Right Click");
+        //    return false;
+    </script>
+}
+@section scripts5{
+
+    <script type="text/javascript">
+        $('#demo').bind('contextmenu', function (e) {
+            return false;
+        });
+    </script>
+}
+@section scripts23{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#demo").on("contextmenu", function () {
                 return false;
             });
-        </script>
-    }
-    @section scripts23{
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#demo").on("contextmenu", function () {
-                    return false;
-                });
-            }); 
-        </script>
-    }
-        <div>
-            <a asp-action="Index">Back to List</a>
-        </div>
+        });
+    </script>
+}
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 

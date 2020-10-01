@@ -7,17 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LokwaInnovation.DBContext;
 using Lubes.Models;
+using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace LokwaInnovation.Controllers
 {
     public class PDF_RefferenceController : Controller
     {
         private readonly ApplicationDBContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public PDF_RefferenceController(ApplicationDBContext context)
+
+        public PDF_RefferenceController(ApplicationDBContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
+     
+
 
         // GET: PDF_Refference
         public async Task<IActionResult> Index()
@@ -44,9 +52,20 @@ namespace LokwaInnovation.Controllers
         }
 
         // GET: PDF_Refference/Create
-        public IActionResult Create()
+        public IActionResult Create( [Optional] String id)
         {
-            return View();
+            if (id == null)
+            {
+                TempData["statusMessage"] = "You must add a PDF file first.";
+                TempData["status"] = "Warning!";
+                return RedirectToAction("Create", "PDF_Documents");
+            }
+            else
+            {
+                ViewBag.id = id;
+                return View();
+            }
+           
         }
 
         // POST: PDF_Refference/Create
@@ -140,6 +159,7 @@ namespace LokwaInnovation.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var pDF_Refference = await _context.Pdf_refference.FindAsync(id);
+
             _context.Pdf_refference.Remove(pDF_Refference);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

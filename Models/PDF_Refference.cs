@@ -18,7 +18,7 @@ namespace Lubes.Models
 
         [Required]
 
-        public string Doc_id { get; set; }
+        public int Doc_id { get; set; }
 
         //[Display(Name = "Document description :", Prompt = "Document description ")]
         //[Required]

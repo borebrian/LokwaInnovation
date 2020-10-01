@@ -23,7 +23,7 @@ namespace Lubes.Models
 
         [Display(Name = "Document description :", Prompt = "Document description ")]
         [Required]
-        [MaxLength(50)]
+        [MaxLength(300)]
         public string  Document_description { get; set; }
 
         [Display(Name = "Upload your document in pdf format:")]
