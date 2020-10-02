@@ -61,16 +61,9 @@ namespace LokwaInnovation.Controllers
             var  itemlist = _context.PDF_Documents.ToList();
             ViewBag.itemlist = itemlist;
 
-
-
-
-
-
-
-
-
-
-
+            //BIND DOCUMENTS
+            var messages = _context.AnonymousMessages.Where(x=> x.status==false).Count();
+            ViewBag.messages = messages.ToString();
 
 
             //BIND DOCUMENTS
@@ -100,7 +93,7 @@ namespace LokwaInnovation.Controllers
         }
          public ActionResult Visits()
         {
-            return View();
+            return View(_context.Visits_counter.Take(10).ToList()); 
         }
 
 

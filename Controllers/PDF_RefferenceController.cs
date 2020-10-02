@@ -189,10 +189,16 @@ namespace LokwaInnovation.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var pDF_Refference = await _context.Pdf_refference.FindAsync(id);
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, pDF_Refference.Refference_url);
 
+            System.IO.File.Delete(path);
             _context.Pdf_refference.Remove(pDF_Refference);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            TempData["status"] = " Refference deleted successfulyy!";
+
+            return RedirectToAction("Index", "PDF_Documents" );
         }
 
         private bool PDF_RefferenceExists(int id)

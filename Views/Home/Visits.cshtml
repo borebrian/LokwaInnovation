@@ -1,8 +1,22 @@
-﻿
+﻿@model IEnumerable<LokwaInnovation.Models.Visits_counter>
+
+
 <nav aria-label="breadcrumb card-1">
     <ol class="breadcrumb">
         <li class="breadcrumb-item "><a asp-action="Dashboard" asp-controller="Home" class="color">Dashboard</a></li>
-        <li class="breadcrumb-item"><a asp-action="index" asp-controller="PDF_Documents" class="color">Website visitors</a></li>
-       
+        <li class="breadcrumb-item"><a asp-action="Visits" asp-controller="Home" class="color">Website visitors</a></li>
+
     </ol>
 </nav>
+
+<div aria-label="card card-1" style="        background-color: #f8f9fa;">
+    <table class="table">
+        <tr style="font-weight:bolder"><td>Visitor role</td><td>Visit date</td></tr>
+        @foreach (var item in Model)
+        {
+            <tr><td>@Html.DisplayFor(modelItem => item.Role)</td><td>@Html.DisplayFor(modelItem => item.Date)</td></tr>
+
+
+        }
+    </table>
+</div>

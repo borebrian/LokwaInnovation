@@ -26,6 +26,7 @@
     <Folder Include="Migrations\" />
     <Folder Include="Views\ChartBox\" />
     <Folder Include="wwwroot\Cover_images\" />
+    <Folder Include="wwwroot\Refferences\" />
     <Folder Include="wwwroot\web\New folder\" />
   </ItemGroup>
 

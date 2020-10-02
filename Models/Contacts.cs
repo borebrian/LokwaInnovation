@@ -33,6 +33,10 @@ namespace LokwaInnovation.Models
       
         public  Boolean status { get; set; }= false;
 
+        [Required]
+
+        public Boolean Roles { get; set; } = false;
+
         [Key]
         [Required]
         public int ID { get; set; }
