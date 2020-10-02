@@ -29,8 +29,9 @@ namespace LokwaInnovation.Controllers
 
 
         // GET: PDF_Refference
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([Optional] int id)
         {
+           
             return View(await _context.Pdf_refference.ToListAsync());
         }
 
@@ -48,12 +49,13 @@ namespace LokwaInnovation.Controllers
             {
                 return NotFound();
             }
-
+            var posts = _context.Pdf_refference.Where(w => w.Doc_id.ToString() == id.ToString());
+            ViewBag.relatedPost = posts;
             return View(pDF_Refference);
         }
 
         // GET: PDF_Refference/Create
-        public IActionResult Create([Optional] String id)
+        public IActionResult Create([Optional] String id, [Optional] String PDFName)
         {
             if (id == null)
             {
@@ -64,7 +66,8 @@ namespace LokwaInnovation.Controllers
             }
             else
             {
-                HttpContext.Session.SetString("docid", id.ToString());
+                HttpContext.Session.SetString("docid", id);
+                HttpContext.Session.SetString("docname", PDFName);
                 var posts = _context.Pdf_refference.Where(w => w.Doc_id.ToString()== HttpContext.Session.GetString("docid")).ToList();
                 ViewBag.relatedPost = posts;
 

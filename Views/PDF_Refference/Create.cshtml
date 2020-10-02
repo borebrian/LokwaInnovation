@@ -10,8 +10,8 @@
         <li class="breadcrumb-item "><a asp-action="Dashboard" asp-controller="Home" class="color">Dashboard</a></li>
         <li class="breadcrumb-item"><a asp-action="index" asp-controller="PDF_PDF_Refference" class="color">Refference</a></li>
         <li class="breadcrumb-item active" aria-current="page">Create</li>
-        @Context.Session.GetString("docid")
-
+        <li class="breadcrumb-item active" aria-current="page"><span class="badge badge-pill badge-dark">@Context.Session.GetString("docname")</span></li>
+       
     </ol>
 </nav>
 <hr />
@@ -44,7 +44,8 @@
         </form>
     </div>
     <div class="col-md-8 mt-3">
-        <div class="card-header p-0">
+        <div class="card-header ">
+            <h6><i class="fa fa-code-fork" aria-hidden="true"></i>&nbsp;Refferences associated with <span class="badge badge-pill badge-dark"> @Context.Session.GetString("docname")</span></h6>
         <div class="scrolling-wrapper p-0">
             @{
                 if (@Context.Session.GetString("docid") != null)
@@ -62,7 +63,7 @@
         width: 150px;
         border-radius: 15px;
 ">
-                                <h6 class="card-title text-light">John Doe</h6>
+                                <p class="card-text text-light" style="white-space: nowrap; width: 100px; overflow: hidden; text-overflow: ellipsis;">@item.Description.</p>
                                 <a href="javascript:void(0)" onclick="getReport('/@item.Refference_url'); return false;" class="btn btn-light btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;View</a>
 
                             </div>
@@ -114,28 +115,16 @@
         border-radius: 15px;
 ">
                                         @*<h6 class="card-title text-light" @ViewBag.Description</h6>*@
-                                        <p class="card-text text-light" style="white-space: nowrap; width: 100px; overflow: hidden; text-overflow: ellipsis;">Some example text.</p>
-                                        <p class="card-text">
-                                            @ViewBag.Description
+                                       
 
-                                        </p>
+                                        <p class="card-text text-light" style="white-space: nowrap; width: 100px; overflow: hidden; text-overflow: ellipsis;"> @ViewBag.Description.</p>
+                                        <a href="javascript:void(0)" onclick="getReport('@ViewBag.imageURL'); return false;" class="btn btn-light btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;View</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-header bg-dark text-white">
-
-
-                    </div>
-                    <div class="card-header " style="height:1000px;padding:0px">
-                        <div class="row">
-                            <div class="col-md-12 col-lg-12" style="height:1000px">
-
-                            </div>
-
-                        </div>
-                    </div>
+                    
                 </div>
 
 

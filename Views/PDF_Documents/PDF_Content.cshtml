@@ -5,7 +5,9 @@
         <li class="breadcrumb-item "><a asp-action="Dashboard" asp-controller="Home" class="color">Dashboard</a></li>
         <li class="breadcrumb-item"><a asp-action="index" asp-controller="PDF_Documents" class="color">Documents</a></li>
         <li class="breadcrumb-item active" aria-current="page">Read</li>
-        <li class="breadcrumb-item active" aria-current="page">@Html.DisplayFor(model => model.Document_name)</li>
+        <li class="breadcrumb-item active" aria-current="page">
+        <span class="badge badge-pill badge-dark">@Html.DisplayFor(model => model.Document_name)</span>
+            </li>
     </ol>
 </nav>
 
@@ -50,7 +52,7 @@ else
             Go to refference &nbsp;<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
         </button>*@
 
-                    <a class="btn  float-right" asp-action="Create" asp-controller="PDF_Refference" asp-route-id="@Model.ID">Add reffernce &nbsp;<i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                    <a class="btn  float-right" asp-action="Create" asp-controller="PDF_Refference" asp-route-id="@Model.ID" asp-route-PDFName="@Model.Document_name">Add reffernce &nbsp;<i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 
 
                  
@@ -62,12 +64,12 @@ else
         <div class="card-header p-0">
             <div class="scrolling-wrapper p-0">
                 @{
-                    if (ViewBag.relatedItems != null)
+                    if (ViewBag.relate != null)
                     {
-                        @foreach (var item in ViewBag.relatedItems)
+                        @foreach (var item in ViewBag.relate)
                         {
                             <div class="card m-3  cardd m-0" style="width:150px;border-radius:15px;">
-                                <img class="card-img-top" src="/@item.Cover_url" alt="Card image" style="        height:150px;
+                                <img class="card-img-top" src="/@item.Refference_url" alt="Card image" style="        height:150px;
 
         width: 150px;
         border-radius: 15px;
@@ -78,7 +80,7 @@ else
         border-radius: 15px;
 ">
                                     <h6 class="card-title text-light">John Doe</h6>
-                                    <a href="javascript:void(0)" onclick="getReport('/@item.Cover_url'); return false;" class="btn btn-light btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;View</a>
+                                    <a href="javascript:void(0)" onclick="getReport('/@item.Refference_url'); return false;" class="btn btn-light btn-sm"><i class="fa fa-eye" aria-hidden="true"></i>&nbsp;View</a><br /><br /> <a asp-action="Delete" asp-controller="PDF_Refference" asp-route-id="@item.ID" class="btn btn-danger text-light btn-sm"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Delete</a>
 
                                 </div>
                             </div>

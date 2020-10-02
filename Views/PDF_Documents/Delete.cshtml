@@ -9,7 +9,7 @@
         <li class="breadcrumb-item "><a asp-action="Dashboard" asp-controller="Home" class="color">Dashboard</a></li>
         <li class="breadcrumb-item"><a asp-action="index" asp-controller="PDF_Documents" class="color">Documents</a></li>
         <li class="breadcrumb-item active" aria-current="page">Delete</li>
-        <li class="breadcrumb-item active" aria-current="page"> @Html.DisplayFor(model => model.Document_name)</li>
+        <li class="breadcrumb-item active" aria-current="page"><span class="badge badge-pill badge-dark"> @Html.DisplayFor(model => model.Document_name)</span></li>
     </ol>
 </nav>
 
@@ -18,13 +18,13 @@
     <div class="col-12 mt-3">
         <div class="card">
             <div class="card-header bg-danger text-light">
-                <h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;Delete</h3>
+                <h5><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;Delete</h5>
 
-                <h6>Are you sure you want to delete this PDF? NB:All the related content will also be deleted.</h6>
+                <h6>Are you sure you want to delete this PDF? NB:All the related refferences will also be deleted.</h6>
             </div>
             <div class="card-horizontal">
                 <div class="img-square-wrapper">
-                    <img class="im" src="/@Html.DisplayFor(model => model.Cover_url)" style="        height: 100px;
+                    <img class="im" src="/@Html.DisplayFor(model => model.Cover_url)" style="        height: 150px;
         width: 150px;
         object-fit: cover
 " alt="Card image cap">
@@ -40,8 +40,6 @@
 </div>
 </div>
 <div class="card-footer">
-    <small class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Last updated &nbsp; @Html.DisplayFor(model => model.Date_modified)</small>
-</div><div class="card-footer">
           <div class="card-footer">
               <form asp-action="Delete">
                   <input type="hidden" asp-for="ID" />

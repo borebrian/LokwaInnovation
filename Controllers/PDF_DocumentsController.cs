@@ -13,6 +13,7 @@ using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Routing.Template;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using iTextSharp.text.pdf;
 
 namespace LokwaInnovation.Controllers
 {
@@ -64,7 +65,21 @@ namespace LokwaInnovation.Controllers
             {
                 return NotFound();
             }
+            var posts = _context.Pdf_refference.Where(w => w.Doc_id.ToString() == id.ToString());
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, pDF_Documents.Book_url);
+            float length = new System.IO.FileInfo(path).Length;
+            float toKb = length / 1024;
+            ViewBag.length = toKb;
 
+            PdfReader pdfReader = new PdfReader(path);
+            int numberOfPages = pdfReader.NumberOfPages;
+            //Console.WriteLine(numberOfPages);
+
+
+            ViewBag.pages = numberOfPages;
+            ViewBag.relatedPost = posts;
             return View(pDF_Documents);
         }
 
@@ -83,7 +98,11 @@ namespace LokwaInnovation.Controllers
             }
             ViewBag.id = id;
             var listOfdocs = _context.PDF_Documents.ToList();
-            ViewBag.relatedItems = listOfdocs;
+            ViewBag.relatedItems = listOfdocs;   
+            
+            
+            var related = _context.Pdf_refference.Where(x=>x.Doc_id==id).ToList();
+            ViewBag.relate = related;
 
             return View(pDF_Documents);
         }
@@ -225,6 +244,7 @@ namespace LokwaInnovation.Controllers
 
                         await _context.SaveChangesAsync();
 
+                        TempData["status"] = pDF_Documents.Document_name + " has been updated successfully!";
 
 
 

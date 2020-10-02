@@ -73,7 +73,9 @@ namespace LokwaInnovation.Controllers
 
 
 
-
+            //BIND DOCUMENTS
+            var docs = _context.PDF_Documents.Count();
+            ViewBag.docs = docs.ToString();
 
 
             //BIND VISITS
@@ -95,6 +97,10 @@ namespace LokwaInnovation.Controllers
         public ActionResult RenderMenu()
         {
             return PartialView("_MenuBar");
+        }
+         public ActionResult Visits()
+        {
+            return View();
         }
 
 

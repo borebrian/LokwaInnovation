@@ -5,9 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>PDF_Documents</h4>
+<nav aria-label="breadcrumb card-1">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a asp-action="Dashboard" asp-controller="Home" class="color">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="index" asp-controller="PDF_Documents" class="color">Documents</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+        <li class="breadcrumb-item active" aria-current="page"><span class="badge badge-pill badge-dark"> @Html.DisplayFor(model => model.Document_name)</span></li>
+    </ol>
+</nav>
 <hr />
 <div class="row">
     <div class="col-md-4">

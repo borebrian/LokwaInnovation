@@ -10,7 +10,7 @@
         <li class="breadcrumb-item "><a asp-action="Dashboard" asp-controller="Home" class="color">Dashboard</a></li>
         <li class="breadcrumb-item"><a asp-action="index" asp-controller="PDF_Documents" class="color">Documents</a></li>
         <li class="breadcrumb-item active" aria-current="page">PDF List</li>&nbsp;&nbsp;|&nbsp;&nbsp;
-        <a asp-action="Create" asp-controller="PDF_Documents" class="color"><i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;Add new PDF</a>
+        <a asp-action="Create" asp-controller="PDF_Documents" class="color"><span class="badge badge-pill badge-dark"><i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;Add new PDF</span></a>
     </ol>
 </nav>
 @if (TempData["status"] != null)
@@ -58,47 +58,43 @@
 
         @foreach (var item in ViewBag.SeachResults)
         {
-            <div class="col-12 mt-3">
-                <div class="card">
-                    <div class="card-horizontal">
-                        <div class="img-square-wrapper">
-                            <img class="im" src="/@item.Cover_url" style="        height: 100px;
+        <div class="col-12 mt-3">
+            <div class="card card-1">
+                <div class="card-horizontal">
+                    <div class="img-square-wrapper">
+                        <img class="im" src="/@item.Cover_url" style="        height: 150px;
         width: 150px;
         object-fit: cover
 " alt="Card image cap">
-                        </div>
-                        <div class="card-body">
-                            <h6 class="card-title">@item.Document_name</h6>
-                            <p class="card-text text-lowercase" style="        white-space: nowrap;
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-title">@item.Document_name</h6>
+                        <p class="card-text text-lowercase" style="        white-space: nowrap;
         width: 100px;
         overflow: hidden;
-        text-overflow: ellipsis;
+        text-overflow: ellipsis;">@item.Document_description</p>
+        <a asp-action="create" class="text-dark" asp-controller="PDF_Refference" asp-route-id="@item.ID" asp-route-PDFName="@item.Document_name"><span class="badge badge-pill badge-primary">View refference &nbsp;<i class="fa fa-picture-o" aria-hidden="true"></i></span> </a>
+        <small class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Last updated &nbsp; @item.Date_modified</small>
+        </div>
+        </div>
+        <div class="card-footer">
 
-">@item.Document_description</p>
-</div>
-</div>
-<div class="card-footer">
-    <small class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Last updated &nbsp; @item.Date_modified</small>
-</div><div class="card-footer">
-    <div class="card-footer">
-        <div class="btn-group btn-group-sm">
-            <div class="btn-group btn-group-sm">
-                <a class="btn btn-secondary text-light" asp-action="Details" asp-route-id="@item.ID"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Details</a>
-                <a class="btn btn-secondary text-light" asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Update</a>
-                <a class="btn btn-secondary" asp-action="PDF_Content" asp-controller="PDF_Documents" asp-route-id="@item.ID" text-light"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Read</a>
-                <a class="btn btn-danger text-light" asp-action="Delete" asp-route-id="@item.ID"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Delete</a>
+            @*<div class="btn-group btn-group-sm">*@
+            <a class="btn btn-sm btn-primary text-light" asp-action="Details" asp-route-id="@item.ID"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Details</a>
+            <a class="btn btn-sm btn-primary text-light" asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Update</a>
+            <a class="btn btn-sm btn-primary" asp-action="PDF_Content" asp-controller="PDF_Documents" asp-route-id="@item.ID" text-light"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Read</a>
+            <a class="btn btn-sm btn-danger text-light" asp-action="Delete" asp-route-id="@item.ID"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Delete</a>
 
 
 
-            </div>
+            @*</div>*@
+
 
 
 
         </div>
-    </div>
-</div>
-</div>
-</div>
+        </div>
+        </div>
 }
     </div>
 }
@@ -109,10 +105,10 @@ else
         @foreach (var item in Model)
         {
             <div class="col-12 mt-3">
-                <div class="card">
+                <div class="card card-1">
                     <div class="card-horizontal">
                         <div class="img-square-wrapper">
-                            <img class="im" src="/@Html.DisplayFor(modelItem => item.Cover_url)" style="        height: 100px;
+                            <img class="im" src="/@Html.DisplayFor(modelItem => item.Cover_url)" style="        height: 150px;
         width: 150px;
         object-fit: cover
 " alt="Card image cap">
@@ -123,26 +119,25 @@ else
         width: 100px;
         overflow: hidden;
         text-overflow: ellipsis;">@Html.DisplayFor(modelItem => item.Document_description)</p>
-        <a asp-action="create" class="text-dark" asp-controller="PDF_Refference" asp-route-id="@item.ID">View refference &nbsp;<i class="fa fa-picture-o" aria-hidden="true"></i></a>
-    </div>
+                        <a asp-action="create" class="text-dark" asp-controller="PDF_Refference" asp-route-id="@item.ID" asp-route-PDFName="@item.Document_name"><span class="badge badge-pill badge-primary">View refference &nbsp;<i class="fa fa-picture-o" aria-hidden="true"></i></span> </a>
+                        <small class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Last updated &nbsp; @Html.DisplayFor(modelItem => item.Date_modified)</small>
+                        </div>
 </div>
 <div class="card-footer">
-    <small class="text-muted"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;Last updated &nbsp; @Html.DisplayFor(modelItem => item.Date_modified)</small>
-</div><div class="card-footer">
-    <div class="btn-group btn-group-sm">
-        <div class="btn-group btn-group-sm">
-            <a class="btn btn-secondary text-light" asp-action="Details" asp-route-id="@item.ID"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Details</a>
-            <a class="btn btn-secondary text-light" asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Update</a>
-            <a class="btn btn-secondary" asp-action="PDF_Content" asp-controller="PDF_Documents" asp-route-id="@item.ID" text-light"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Read</a>
-            <a class="btn btn-danger text-light" asp-action="Delete" asp-route-id="@item.ID"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Delete</a>
+   
+        @*<div class="btn-group btn-group-sm">*@
+            <a class="btn btn-sm btn-primary text-light" asp-action="Details" asp-route-id="@item.ID"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Details</a>
+            <a class="btn btn-sm btn-primary text-light" asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Update</a>
+            <a class="btn btn-sm btn-primary" asp-action="PDF_Content" asp-controller="PDF_Documents" asp-route-id="@item.ID" text-light"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Read</a>
+            <a class="btn btn-sm btn-danger text-light" asp-action="Delete" asp-route-id="@item.ID"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Delete</a>
 
 
 
-        </div>
+        @*</div>*@
 
 
 
-    </div>
+   
 </div>
 </div>
 </div>
