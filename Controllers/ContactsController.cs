@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LokwaInnovation.DBContext;
 using LokwaInnovation.Models;
+using System.Runtime.InteropServices;
 
 namespace LokwaInnovation.Controllers
 {
@@ -24,8 +25,23 @@ namespace LokwaInnovation.Controllers
         {
             return View(await _context.AnonymousMessages.Where(x => x.status == false).ToListAsync());
         }
-            // GET: Contacts/Details/5
-            public async Task<IActionResult> Details(int? id)
+
+        public async Task<IActionResult> chartBox([Optional] String id, [Optional] String phone)
+        {
+            //LETS GET CLIENTS NAME
+            var contacts = await _context.AnonymousMessages
+                .FirstOrDefaultAsync(m => m.ID.ToString() == id);
+            ViewBag.name = contacts.Full_name;
+
+
+
+
+
+            //LETS GET ALL HIS/HER MESSAGES
+            return View(await _context.AnonymousMessages.Where(x => x.Phone_number == phone).ToListAsync());
+        }
+        // GET: Contacts/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -53,7 +69,7 @@ namespace LokwaInnovation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Full_name,Subject,Date,Message,status,Roles,ID")] Contacts contacts)
+        public async Task<IActionResult> Create([Bind("Full_name,Phone_number,Subject,Message,status,Roles,ID")] Contacts contacts)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +101,7 @@ namespace LokwaInnovation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Full_name,Subject,Date,Message,status,Roles,ID")] Contacts contacts)
+        public async Task<IActionResult> Edit(int id, [Bind("Full_name,Phone_number,Subject,Message,status,Roles,ID")] Contacts contacts)
         {
             if (id != contacts.ID)
             {

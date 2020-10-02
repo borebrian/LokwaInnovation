@@ -105,6 +105,7 @@ namespace LokwaInnovation.Controllers
           
             var author = new Visits_counter
             {
+
                 Date = DateTime.Now.ToString(),
                 Role = "Anonymous",
               
@@ -122,11 +123,25 @@ namespace LokwaInnovation.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index([Bind("Full_name,Subject,Date,Message,ID")] Contacts contacts)
+        public async Task<IActionResult> Index([Bind("Full_name,Phone_number,Subject,Message,status,Roles,ID,Time")] Contacts contacts)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(contacts);
+
+                Contacts contacts1 = new Contacts {
+                    Full_name = contacts.Full_name,
+                    Phone_number = contacts.Phone_number,
+                    Subject = contacts.Subject,
+                    Message = contacts.Message,
+                    status = contacts.status,
+                    Roles = contacts.Roles,
+                    ID = contacts.ID,
+                    Time = DateTime.Now.ToString()
+                
+                
+                };
+
+                _context.Add(contacts1);
                 await _context.SaveChangesAsync();
                 ViewBag.Message = "Message sent successfully! we will reach back to you shortly";
                 

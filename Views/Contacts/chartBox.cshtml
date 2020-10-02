@@ -1,0 +1,98 @@
+﻿@model IEnumerable<LokwaInnovation.Models.Contacts>
+    <link href="~/css/chart.css" rel="stylesheet" />
+<nav aria-label="breadcrumb card-1">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a asp-action="Dashboard" asp-controller="Home" class="color">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="Visits" asp-controller="Home" class="color">Chats</a></li>
+        <li class="breadcrumb-item"><a asp-action="Visits" asp-controller="Home" class="color">@ViewBag.name</a></li>
+
+    </ol>
+</nav>
+<div class="card card-1 m-1 p-2" style="border-radius:10px;height:500px;">
+    @foreach (var item in Model)
+    {
+        if (item.Roles == false)
+        {
+            <div class="row">
+
+
+                <div class="col-lg-8 col-md-8 col-sm-8 col-8 pt-2 ">
+                    <div class="card card-1 m-1" style="border-radius:10px;">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-3 pt-4 pl-4" style="border-right-color:red; border-right:2px solid red;">
+
+                                <h5 class="display-5"> <i class="fa fa-comments " aria-hidden="true"></i></h5>
+
+                            </div>
+
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-9">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
+
+                                        <table >
+                                            <tr>
+                                                
+                                                <td>
+                                                    <small class="color"> @Html.DisplayFor(modelItem => item.Message)</small>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <small class="color text-muted"> @Html.DisplayFor(modelItem => item.Time)</small>
+                                                </td>
+                                                <td>
+                                                  &nbsp;&nbsp;  <i class="fa fa-trash-o float-right" aria-hidden="true"></i>
+
+                                                </td>
+                                            </tr>
+                                        </table>
+                                      
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-4 pt-2 ">
+                </div>
+            </div>
+
+
+        }
+        else
+        {
+<div class="row">
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-4 pt-2 ">
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-8 pt-2 ">
+        <div class="card card-1 m-1" style="border-radius:10px;">
+            <div class="row">
+
+
+                <div class="col-lg-9 col-md-9 col-sm-9 col-9 pl-4">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
+                            <small class="text-muted"> @Html.DisplayFor(modelItem => item.Full_name)</small><br />
+
+                            <strong class="color"> @Html.DisplayFor(modelItem => item.Message)</strong><br />
+                            <small class="color text-muted"> @Html.DisplayFor(modelItem => item.Time)</small><br />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-3 pt-4" style="border-left-color:red; border-left:2px solid red;">
+
+                    <h5 class="display-5"> <i class="fa fa-comments " aria-hidden="true"></i></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+        }
+
+    }
+</div>

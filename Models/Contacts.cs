@@ -10,32 +10,32 @@ namespace LokwaInnovation.Models
     public class Contacts
     {
 
-        [Required]
-        [Display(Name = "Full names", Prompt = "Full names")]
+        
+        [Display(Name = "Names/Nick name", Prompt = "Name/Nick name")]
         public string Full_name { get; set; }
       
         [Required]
         [Display(Name = "Phone number", Prompt = "Phone number")]
         [DataType(DataType.PhoneNumber)]
-        public string Subject { get; set; }
+        public string Phone_number { get; set; }
+
+
         
-
-        [Required]
         [Display(Name = "Subject:", Prompt = "Subject")]
-        [DataType(DataType.Password)]
+        public string Subject { get; set; } 
 
-        public string Date { get; set; }
+
         [Required]
         [Display(Name = "Message:", Prompt = "Message")]
         public string Message { get; set; } 
         
         [Required]
-      
         public  Boolean status { get; set; }= false;
 
         [Required]
-
         public Boolean Roles { get; set; } = false;
+       
+        public String Time { get; set; } 
 
         [Key]
         [Required]

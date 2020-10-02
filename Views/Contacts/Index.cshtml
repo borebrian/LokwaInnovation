@@ -24,14 +24,15 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
-                        <strong style="font-size:11px" class="color"> @Html.DisplayFor(modelItem => item.Full_name)</strong><br />
-                        <strong> @Html.DisplayFor(modelItem => item.Subject)</strong><br />
+                        <small class="text-muted"> @Html.DisplayFor(modelItem => item.Full_name)</small><br />
+                        <strong> @Html.DisplayFor(modelItem => item.Phone_number)</strong><br />
                         <strong class="color"> @Html.DisplayFor(modelItem => item.Message)</strong><br />
+                        <small class="color text-muted"> @Html.DisplayFor(modelItem => item.Time)</small><br />
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-4 pt-3 ">
-                <a href class="p-2" style="        background-color: #ed563b;color:white;border-radius:20px;">Reply &nbsp;<i class="fa fa-paper-plane" aria-hidden="true"></i></a>
+                <a asp-action="chartBox" asp-controller="Contacts" asp-route-id="@item.ID" asp-route-phone="@item.Phone_number" class="p-2 float-right mr-2 mt-3" style="        background-color: #ed563b;color:white;border-radius:20px;">Reply &nbsp;<i class="fa fa-paper-plane" aria-hidden="true"></i></a>
             </div>
         </div>
     </div>
@@ -86,6 +87,3 @@
             }
         </tbody>
     </table>*@
-
-
-
