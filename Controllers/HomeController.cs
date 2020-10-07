@@ -32,7 +32,7 @@ namespace LokwaInnovation.Controllers
 
 
             var role = User.Identity.Name;
-
+      
             if (role == "1")
             {
                 return Redirect("~/Home/Dashboard");
@@ -100,9 +100,6 @@ namespace LokwaInnovation.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-
-
-          
             var author = new Visits_counter
             {
 
@@ -127,8 +124,7 @@ namespace LokwaInnovation.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                Contacts contacts1 = new Contacts {
+                    Contacts contacts1 = new Contacts {
                     Full_name = contacts.Full_name,
                     Phone_number = contacts.Phone_number,
                     Subject = contacts.Subject,
@@ -137,8 +133,6 @@ namespace LokwaInnovation.Controllers
                     Roles = contacts.Roles,
                     ID = contacts.ID,
                     Time = DateTime.Now.ToString()
-                
-                
                 };
 
                 _context.Add(contacts1);

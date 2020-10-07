@@ -24,20 +24,30 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
+                        @if (!item.status)
+                        {
+                            <span class="badge badge-pill badge-danger">NEW</span>
+                        }
                         <small class="text-muted"> @Html.DisplayFor(modelItem => item.Full_name)</small><br />
-                        <strong> @Html.DisplayFor(modelItem => item.Phone_number)</strong><br />
-                        <strong class="color"> @Html.DisplayFor(modelItem => item.Message)</strong><br />
-                        <small class="color text-muted"> @Html.DisplayFor(modelItem => item.Time)</small><br />
+                        @*<strong class="color"> @Html.DisplayFor(modelItem => item.Message)</strong><br />*@
+                        <small> @Html.DisplayFor(modelItem => item.Phone_number)</small>
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+
+                        <small class="color text-muted"> @Html.DisplayFor(modelItem => item.Time)</small>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-4 pt-3 ">
-                <a asp-action="chartBox" asp-controller="Contacts" asp-route-id="@item.ID" asp-route-phone="@item.Phone_number" class="p-2 float-right mr-2 mt-3" style="        background-color: #ed563b;color:white;border-radius:20px;">Reply &nbsp;<i class="fa fa-paper-plane" aria-hidden="true"></i></a>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-4  ">
+                <a asp-action="chartBox" asp-controller="Contacts" asp-route-id="@item.ID" asp-route-phone="@item.Phone_number" class="p-2 float-right  m-2" style="        background-color: #ed563b;color:white;border-radius:20px;">Reply &nbsp;<i class="fa fa-paper-plane" aria-hidden="true"></i></a>
             </div>
         </div>
     </div>
 
 }
+
+<div class="footerCustome">
+    <p>Footer</p>
+</div>
 @*<table class="table">
         <thead>
             <tr>

@@ -13,8 +13,6 @@ namespace LokwaInnovation.Models
         [Display(Name = "Full names", Prompt = "Full names")]
         public string Full_name { get; set; }
 
-
-
         [Required]
         [StringLength(13, MinimumLength = 10, ErrorMessage = "Invalid phone number")]
         [Display(Name = "Phone number")]

@@ -3,3 +3,13 @@
     height:35px;
     width:50px;
 }
+.footerCustome {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height:60px;
+    background-color: #ed563b;
+    color: white;
+    text-align: center;
+}

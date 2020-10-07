@@ -22,6 +22,9 @@ namespace LokwaInnovation.Models
         
         [Required]
         public  Boolean status { get; set; }= false;
+        
+        [Required]
+        public  int chatID { get; set; }
 
         [Key]
         [Required]

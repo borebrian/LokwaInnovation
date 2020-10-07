@@ -1,0 +1,152 @@
+﻿@model IEnumerable<LokwaInnovation.Models.Messages>
+@using Microsoft.AspNetCore.Http
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/chatShared.cshtml";
+}
+<link href="~/css/chart.css" rel="stylesheet" />
+<nav aria-label="breadcrumb card-1">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a asp-action="Dashboard" asp-controller="Home" class="color">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="index" asp-controller="Messages" class="color">Chats</a></li>
+        <li class="breadcrumb-item"><a asp-action="Visits" asp-controller="Home" class="color">@ViewBag.name</a></li>
+
+    </ol>
+</nav>
+<div class="card card-1 m-1 p-2" style="        border-radius: 10px;
+        height: 440px;
+        margin-bottom: 120px;
+        overflow-y: auto;
+">
+    @foreach (var item in ViewBag.ListOfMessages)
+    {
+        if (item.Subject == Context.Session.GetString("PhoneNumber"))
+        {
+
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-4 pt-2 ">
+
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-8 pt-2 ">
+                    <div class="card card-1 m-1" style="border-radius:10px;">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-9 pl-4">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                        <small class="text-muted"> @Context.Session.GetString("FullNames")</small><br />
+
+                                        <strong class="color"> @item.Message</strong><br />
+                                        <small class="color text-muted"> @item.Date</small><br />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-3 pt-4" style="border-left-color:red; border-left:2px solid red;">
+
+                                <h5 class="display-5"> <i class="fa fa-comments " aria-hidden="true"></i></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+        else
+        {
+
+            <div class="row">
+
+
+                <div class="col-lg-8 col-md-8 col-sm-8 col-8 pt-2 ">
+                    <div class="card card-1 m-1" style="border-radius:10px;">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-3 pt-4 pl-4" style="border-right-color:red; border-right:2px solid red;">
+
+                                <h5 class="display-5"> <i class="fa fa-comments " aria-hidden="true"></i></h5>
+
+                            </div>
+
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-9">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
+
+                                        <table>
+                                            <tr>
+
+                                                <td>
+                                                    <small class="color"> @item.Message</small>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <small class="color text-muted"> @item.Date</small>
+                                                </td>
+                                                <td>
+                                                 
+
+                                                </td>
+                                            </tr>
+                                        </table>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-4 pt-2 ">
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+    }
+</div>
+<div class="footerCustome p-2">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12 ">
+            if()
+            @using (Html.BeginForm("Reply", "Contacts", FormMethod.Get))
+            {
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Enter message to send here" id="demo" name="message" style="border-top-left-radius:15px;border-bottom-left-radius:15px">
+                    <input type="hidden" type="text" class="form-control" placeholder="Enter message to send here" id="demo" name="Names" style="border-top-left-radius:15px;border-bottom-left-radius:15px">
+                    <input type="hidden" class="form-control" placeholder="Enter message to send here" id="demo" name="email" style="border-top-left-radius:15px;border-bottom-left-radius:15px">
+
+                    <input type="hidden" class="form-control" placeholder="Enter message to send here" id="demo" name="Phone" style="border-top-left-radius:15px;border-bottom-left-radius:15px">
+
+                    <input type="hidden" class="form-control" placeholder="Enter message to send here" id="demo" name="role" style="border-top-left-radius:15px;border-bottom-left-radius:15px">
+
+                    <input type="hidden" class="form-control" placeholder="Enter message to send here" id="demo" name="MessageReadStatus" style="border-top-left-radius:15px;border-bottom-left-radius:15px">
+                    <div class="input-group-append">
+                        <span class="input-group-text" style="border-top-right-radius:15px;border-bottom-right-radius:15px;">Send</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

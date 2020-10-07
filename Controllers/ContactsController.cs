@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using LokwaInnovation.DBContext;
 using LokwaInnovation.Models;
 using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Authorization;
+using Telegram.Bot.Types;
+using Microsoft.AspNetCore.Http;
 
 namespace LokwaInnovation.Controllers
 {
@@ -25,21 +28,44 @@ namespace LokwaInnovation.Controllers
         {
             return View(await _context.AnonymousMessages.Where(x => x.status == false).ToListAsync());
         }
+        public async Task<IActionResult> Reply([Optional] String Names ,[Optional]String message,[Optional] string MessageReadStatus,[Optional] string Phone,[Optional] string role )
+        {
+            return View(await _context.AnonymousMessages.Where(x => x.status == false).ToListAsync());
+        }
+        [Authorize]
 
         public async Task<IActionResult> chartBox([Optional] String id, [Optional] String phone)
         {
+            var rolse = User.Identity.Name;
+            var user_id = User.Claims.FirstOrDefault(c => c.Type == "User_id").Value;
             //LETS GET CLIENTS NAME
-            var contacts = await _context.AnonymousMessages
-                .FirstOrDefaultAsync(m => m.ID.ToString() == id);
+            var contacts = await _context.Log_in
+                .FirstOrDefaultAsync(m => m.User_ID.ToString() == user_id);
             ViewBag.name = contacts.Full_name;
 
 
+            //LETS GET USER DETAILS
+            HttpContext.Session.SetString("FullNames", contacts.Full_name);
+            HttpContext.Session.SetString("PhoneNumber", contacts.Phone_number);
+            HttpContext.Session.SetString("Roles", contacts.Roles.ToString());
+
+            var friends = _context.AnonymousMessages.Where(f => f.Phone_number == phone).ToList();
+            friends.ForEach(a => a.status = true);
+            _context.SaveChanges();
+
+            //  LETS GET ALL HIS/ HER MESSAGES
+
+
+            var result = _context.AnonymousMessages;
 
 
 
-            //LETS GET ALL HIS/HER MESSAGES
-            return View(await _context.AnonymousMessages.Where(x => x.Phone_number == phone).ToListAsync());
+            return View( _context
+        .AnonymousMessages.GroupBy(x => x.Phone_number)
+        .Select(x => new { Location = x.Key, Buildings = x.Count() }).ToList());
+            //}
         }
+
         // GET: Contacts/Details/5
         public async Task<IActionResult> Details(int? id)
         {

@@ -26,6 +26,8 @@ namespace LokwaInnovation.DBContext
 
         public DbSet<Visits_counter> Visits_counter { get; set; }
         public DbSet<PDF_Refference> Pdf_refference { get; set; }
+        public DbSet<Conversation> Conversation { get; set; }
+        public DbSet<LokwaInnovation.Models.Messages> Messages { get; set; }
 
        
 

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Telegram.Bot.Types;
 
 namespace LokwaInnovation
 {
@@ -56,9 +57,9 @@ namespace LokwaInnovation
             claims.Add(_claim);
             _claim = new Claim(ClaimTypes.Role, user.Roles.ToString());
             claims.Add(_claim);
-            _claim = new Claim("Roles", user.Roles.ToString());
+            _claim = new Claim("User_id", user.User_ID.ToString());
             claims.Add(_claim);
-
+           
             //claims.Add(_claim);
             //_claim = new Claim("EMAILID", user.strEmail);
             //claims.Add(_claim);

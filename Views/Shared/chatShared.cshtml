@@ -36,11 +36,10 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;FAQs</a>
-                        </li> 
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Messages" asp-action="Index"><i class="fa fa-comments-o" aria-hidden="true"></i>&nbsp;Messages</a>
                         </li>
-                       
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-commenting-o" aria-hidden="true"></i>&nbsp;Messages</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -55,19 +54,13 @@
 
 
     </header>
-    <div class="container-fluid" style="margin-top:70px;">
+    <div class="container-fluid" style="margin-top:70px;margin-bottom:60px;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    @*<footer class="footer  text-center text-light fixed-bottom" style="        border: none;
-        background-color: #68213A
-">
-
-        <img src="/SystemImage/logolubee.png" style="width:30px;width:30px;font-family:best;margin-right:10px;" alt="" /> &copy; @DateTime.Now.Year - Lokwa - <a asp-area="" asp-controller="Home" asp-action="Privacy"></a>
-
-    </footer>*@
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
