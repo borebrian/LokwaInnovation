@@ -46,11 +46,11 @@ namespace LokwaInnovation.Models
 
         [Key]
         [Required]
-        public int User_ID { get; set; } 
-       
-        
+        public int User_ID { get; set; }
+
+
         [Required]
-        public int Roles { get; set; }
+        public int Roles { get; set; } = 2;
 
     }
 

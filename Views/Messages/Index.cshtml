@@ -13,36 +13,48 @@
 
     </ol>
 </nav>
-
-@foreach (var item in Model)
+@if (ViewBag.Empty)
 {
-    <div class="card card-1 m-1" style="border-radius:20px;">
-        <div class="row">
-            <div class="col-lg-2 col-md-2 col-sm-2 col-2 pt-2 " style="border-right-color:red; border-right:2px solid red;">
-                <img src="/images/System/anonymous.png" class="rounded-circle anonymous mr-2" />
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 pt-3">
-                        @if (!item.status)
-                        {
-                            <span class="badge badge-pill badge-danger">NEW</span>
-                        }
-                        <small class="text-muted">Client no: @Html.DisplayFor(modelItem => item.chatID)</small><br />
-                        @*<strong class="color"> @Html.DisplayFor(modelItem => item.Message)</strong><br />*@
-                        @*<small> @Html.DisplayFor(modelItem => item.Phone_number)</small>
-                        &nbsp;&nbsp;|&nbsp;&nbsp;
+    <div class="alert alert-danger" >
+       
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>  &nbsp;   No messages
 
-                        <small class="color text-muted"> @Html.DisplayFor(modelItem => item.Time)</small>*@
+       
+        </div>
+        }
+        else
+        {
+
+
+        @foreach (var item in Model)
+        {
+            <div class="card card-1 m-1" style="border-radius:20px;">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-2 pt-2 " style="border-right-color:red; border-right:2px solid red;">
+                        <img src="/images/System/anonymous.png" class="rounded-circle anonymous mr-2" />
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12 pt-3">
+                                @if (!item.status)
+                                {
+                                    <span class="badge badge-pill badge-danger">NEW</span>
+                                }
+                                <small class="text-muted">Client no: @Html.DisplayFor(modelItem => item.chatID)</small><br />
+                                @*<strong class="color"> @Html.DisplayFor(modelItem => item.Message)</strong><br />*@
+                                @*<small> @Html.DisplayFor(modelItem => item.Phone_number)</small>
+                                    &nbsp;&nbsp;|&nbsp;&nbsp;
+
+                                    <small class="color text-muted"> @Html.DisplayFor(modelItem => item.Time)</small>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-4  ">
+                        <a asp-action="chartBox" asp-controller="Messages" asp-route-id="@item.chatID" class="p-2 float-right  m-2" style="        background-color: #ed563b;color:white;border-radius:20px;">Reply &nbsp;<i class="fa fa-paper-plane" aria-hidden="true"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-4  ">
-                <a asp-action="chartBox" asp-controller="Messages" asp-route-id="@item.chatID"  class="p-2 float-right  m-2" style="        background-color: #ed563b;color:white;border-radius:20px;">Reply &nbsp;<i class="fa fa-paper-plane" aria-hidden="true"></i></a>
-            </div>
-        </div>
-    </div>
 
-}
-
+        }
+        }
 

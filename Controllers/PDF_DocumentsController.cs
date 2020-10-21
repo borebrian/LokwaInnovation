@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Routing.Template;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using iTextSharp.text.pdf;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LokwaInnovation.Controllers
 {
@@ -33,6 +34,7 @@ namespace LokwaInnovation.Controllers
         }
 
         // GET: PDF_Documents
+        [Authorize (Roles ="1")]
         public async Task<IActionResult> Index([Optional] string Values)
         {
             if (Values == null)
@@ -52,6 +54,8 @@ namespace LokwaInnovation.Controllers
         }
 
         // GET: PDF_Documents/Details/5
+        [Authorize(Roles = "1")]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -84,6 +88,7 @@ namespace LokwaInnovation.Controllers
         }
 
         // GET: PDF_Documents/Create
+
         public async Task<IActionResult> PDF_Content(int? id)
         {
             if (id == null)
@@ -106,6 +111,7 @@ namespace LokwaInnovation.Controllers
 
             return View(pDF_Documents);
         }
+        [Authorize(Roles = "1")]
 
         public IActionResult Create()
         {
@@ -116,6 +122,8 @@ namespace LokwaInnovation.Controllers
         // POST: PDF_Documents/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize (Roles ="1")]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(PDF_Documents pDF_Documents)
@@ -170,6 +178,8 @@ namespace LokwaInnovation.Controllers
         }
 
         // GET: PDF_Documents/Edit/5
+        [Authorize(Roles = "1")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -190,6 +200,8 @@ namespace LokwaInnovation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "1")]
+
         public async Task<IActionResult> Edit(int id, PDF_Documents pDF_Documents)
         {
             if (id != pDF_Documents.ID)
@@ -269,6 +281,8 @@ namespace LokwaInnovation.Controllers
         }
 
         // GET: PDF_Documents/Delete/5
+        [Authorize(Roles = "1")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -288,6 +302,8 @@ namespace LokwaInnovation.Controllers
 
         // POST: PDF_Documents/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "1")]
+
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

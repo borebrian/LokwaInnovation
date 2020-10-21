@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LokwaInnovation.Controllers
 {
@@ -27,6 +28,7 @@ namespace LokwaInnovation.Controllers
         }
 
 
+        [Authorize(Roles = "1")]
 
         // GET: PDF_Refference
         public async Task<IActionResult> Index([Optional] int id)
@@ -36,6 +38,8 @@ namespace LokwaInnovation.Controllers
         }
 
         // GET: PDF_Refference/Details/5
+        [Authorize(Roles = "1")]
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -55,6 +59,8 @@ namespace LokwaInnovation.Controllers
         }
 
         // GET: PDF_Refference/Create
+        [Authorize(Roles = "1")]
+
         public IActionResult Create([Optional] String id, [Optional] String PDFName)
         {
             if (id == null)
@@ -82,6 +88,8 @@ namespace LokwaInnovation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "1")]
+
         public async Task<IActionResult> Create( PDF_Refference pDF_Refference, [Optional] int id)
         {
             if (ModelState.IsValid)
@@ -112,7 +120,8 @@ namespace LokwaInnovation.Controllers
             return View();
         
     }
-        
+
+        [Authorize(Roles = "1")]
 
         // GET: PDF_Refference/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -135,6 +144,8 @@ namespace LokwaInnovation.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "1")]
+
         public async Task<IActionResult> Edit(int id, [Bind("ID,Doc_id,Refference_url,Date_modified")] PDF_Refference pDF_Refference)
         {
             if (id != pDF_Refference.ID)
@@ -166,6 +177,8 @@ namespace LokwaInnovation.Controllers
         }
 
         // GET: PDF_Refference/Delete/5
+        [Authorize(Roles = "1")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -182,6 +195,7 @@ namespace LokwaInnovation.Controllers
 
             return View(pDF_Refference);
         }
+        [Authorize(Roles = "1")]
 
         // POST: PDF_Refference/Delete/5
         [HttpPost, ActionName("Delete")]

@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace LokwaInnovation.Models
 {
-    public class Conversation
+    public class MpesaTransactions
     {
 
-        [Required]
-        public  string chatID { get; set; }
-        [Required]
-        public Boolean status { get; set; } = false;
+       
+        public string Amount { get; set; }
+        public string MpesaReceiptNumber { get; set; }
+        public string TransactionDate { get; set; }
+        public string PhoneNumber { get; set; }
+      
+       
         [Key]
         [Required]
         public int ID { get; set; }

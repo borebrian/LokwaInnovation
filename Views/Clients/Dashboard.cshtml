@@ -1,0 +1,515 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/ClientsLayout.cshtml";
+}
+@using Microsoft.AspNetCore.Http
+
+<meta name="theme-color" content=" #ed563b">
+<!-- Windows Phone -->
+<meta name="msapplication-navbutton-color" content="#ed563b">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-status-bar-style" content="#ed563b">
+
+@if (TempData["response"] == null)
+{
+  <div class="row">
+        <div class="col-lg-12">
+            <div class="image-flip">
+                <div class="mainflip flip-0">
+                    <div class="frontside bgcustome">
+                        <div class="card customeshadow">
+                            <div class="card-body text-left">
+                                <table>
+                                    <tr>
+                                        <td style="border:none;border-right:2px solid red;">
+                                            <img class="img-fluid" src="~/images/System/person.png" alt="card image" style="height:70px;width:70px;margin-right:30px">
+                                        </td>
+                                        <td style="padding-left:40px;">
+                                            <h6 class="card-title">@Context.Session.GetString("FullNames")</h6><br />
+                                            <h6 class="card-title">@Context.Session.GetString("PhoneNumber")</h6><br />
+                                            <h6 class="card-title">@TempData["response"]</h6><br />
+
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+
+        <div class="col-lg-12 ">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    @if (TempData["warn"] != null)
+                    {
+                    <div class="alert alert-success">
+                        <div class="row">
+                            <div class="col-lg-2 col-2" style="border-right:1px green solid;">
+                                <img src="/images/System/loading.gif" style="height:50px;width:50px;" />
+                            </div>
+                            <div class="col-lg-10 col-10"> <strong><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;@TempData["warn"]</strong>
+                            </div>
+
+                        </div>
+                    </div>
+                    }
+                </div>
+                </div>
+
+            <div class="row" style="margin-top:6px;">
+                <div class="col-lg-4">
+
+
+                    <div class="image-flip">
+                        <div class="mainflip flip-0">
+                            <div class="frontside">
+                                <div class="card customeshadow">
+                                    <div class="card-body text-left">
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-4 col-sm-4 col-4">
+                                                <img class="img-fluid" src="~/images/System/tokens.png" alt="card image" style="height:70px;width:70px;">
+                                            </div>
+                                            <div class="col-md-8 col-lg-8 col-sm-8 col-8">
+
+                                                <h4 class="card-title">Tokens</h4>
+                                                <p class="card-text">
+                                                    109.56&nbsp;&nbsp;&nbsp;
+
+                                                    @*<button type="button" class="btn btn-success m-btn m-btn--custom" id="m_sweetalert_demo_6">*@
+                                                    <button data-toggle="modal" class="btn btn-block btn-dark text-left" data-backdrop="static" data-target="#myModal" style="        background-color: #007b5e;border:none
+">
+                                                        Top up &nbsp;<i class="fa fa-angle-double-up" aria-hidden="true"></i>
+                                                    </button>
+                                                </p>
+                                            </div>
+                                            <p>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+
+
+                    <div class="image-flip">
+                        <div class="mainflip flip-0">
+                            <div class="frontside">
+                                <div class="card customeshadow">
+                                    <div class="card-body text-left">
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-4 col-sm-4 col-4">
+                                                @if (@ViewBag.messages == "0")
+                                                {
+
+                                                    <p><img class="img-fluid" src="~/images/System/messages.png" alt="card image" style="height:60px;width:60px;"></p>
+                                                }
+                                                else
+                                                {
+                                                    <p><img class="img-fluid" src="~/images/System/messagesNew.png" alt="card image" style="height:60px;width:60px;"></p>
+                                                }
+                                            </div>
+                                            <div class="col-md-8 col-lg-8 col-sm-8 col-8">
+                                                <h4 class="card-title">Messages</h4>
+                                                <p class="card-text">
+                                                    3 &nbsp;<a asp-action="index" asp-controller="Messages" class="card-title-custome">More details &nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+
+
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                        <p>
+
+
+                                        </p>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="col-lg-4">
+
+
+                    <div class="image-flip">
+                        <div class="mainflip flip-0">
+                            <div class="frontside">
+                                <div class="card customeshadow">
+
+
+                                    <div class="card-body text-left">
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-4 col-sm-4 col-4">
+                                                <p>  <img src="~/images/System/documents.png" style="height:60px;width:60px;"></p>
+                                            </div>
+
+                                            <div class="col-md-8 col-lg-8 col-sm-8 col-8">
+                                                <h4 class="card-title">Documents</h4>
+                                                <p class="card-text">@ViewBag.Visits &nbsp; <a asp-action="Visits" asp-controller="home" class="card-title-custome">More details &nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i></a></p>
+                                            </div>
+
+
+
+
+
+
+
+
+
+
+
+                                        </div>
+                                        @*<div class="card-body text-left">
+                                            <p><img class="img-fluid" src="~/images/System/messagesNew.png" alt="card image" style="height:40px;width:40px;"></p>
+                                            <h4 class="card-title">Messages</h4>
+                                            <p class="card-text">67</p>*@
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="alert alert-success">
+                @TempData["response"]
+            </div>
+        </div>
+    </div>
+}
+
+<div class="modal fade " id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content" style="
+        border-radius: 15px;
+        border-top-right-radius: 15px;
+">
+            @using (Html.BeginForm("makeRequest", "Clients", FormMethod.Post, new { id = "makecash" }))
+            {
+
+            <!-- Modal Header -->
+            <div class="modal-header text-light" style="background-color: #ed563b;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;border:none
+">
+                <h4 class="modal-title" ><img id="mpesa" src="/images/System/mpesa.png" style="height:60px;width:60px;" /> &nbsp;Payment</h4><br />
+                <button type="button" class="close text-light" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" style="        border: none;
+        background-color: #ed563b;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+">
+
+
+
+
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <table class="table bg-light" style="border-radius:15px;" id="token">
+                            <thead>
+                                <tr style="border:none">
+                                    <td style="border-radius:15px;border:none">Token</td>
+                                    <td style="        border-radius: 15px;
+        border: none
+">
+                                        Ksh.
+                                    </td>
+                                </tr>
+
+                            </thead>
+                            <tr>
+                                <td>15</td>
+                                <td>10</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div class="col-lg-12">
+                        <h5 id="infor" class="text-center text-light">Please enter phone number and ammount to pay</h5>
+
+                    </div>
+                    <div class="col-lg-12">
+                        <input type="text" id="phone" name="Phone" maxlength="10" required class="form-control text-center" placeholder="07XXXXXXXX" style="border-radius:10px;">
+                    </div>
+                    <div class="col-lg-12">
+                        <input type="text" id="ammount" name="Ammount" required class="form-control text-center" maxlength="6" placeholder="Ammount" style="border-radius:10px;margin-top:10px">
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer justify-content-center" style=" border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;border:none">
+                <br />
+
+                <table class="table">
+                    <tr>
+                        <td class="text-center">
+                            <button ID="target" type="submit" class="btn btn-secondary" style="background-color: #007b5e;border:none
+" id="target">
+                                Submit
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" style="border:none">
+
+                            <img src="/images/System/loading.gif" id="load" style="height:0px;width:0px;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" style="border:none">
+
+                            <p id="loadingg"></p>
+                        </td>
+                    </tr>
+
+                </table>
+                
+                @*<a href="/Clients/makeRequest" class="btn btn-dark">Make payment &nbsp;<i class="fa fa-check-circle-o" aria-hidden="true"></i></a>*@
+               
+            </div>
+            }
+
+
+        </div>
+    </div>
+
+
+</div>
+@section payment{
+    <script>
+        var SweetAlert2Demo = function () {
+
+            //== Demos
+            var initDemos = function () {
+                //== Sweetalert Demo 1
+                $('#m_sweetalert_demo_1').click(function (e) {
+                    swal('Good job!');
+                });
+
+                //== Sweetalert Demo 2
+                $('#m_sweetalert_demo_2').click(function (e) {
+                    swal("Here's the title!", "...and here's the text!");
+                });
+
+                //== Sweetalert Demo 3
+                $('#m_sweetalert_demo_3_1').click(function (e) {
+                    swal("Good job!", "You clicked the button!", "warning");
+                });
+
+                $('#m_sweetalert_demo_3_2').click(function (e) {
+                    swal("Good job!", "You clicked the button!", "error");
+                });
+
+                $('#m_sweetalert_demo_3_3').click(function (e) {
+                    swal("Paid", "Your payment was received successfylly", "success");
+                });
+
+                $('#m_sweetalert_demo_3_4').click(function (e) {
+                    swal("Good job!", "You clicked the button!", "info");
+                });
+
+                $('#m_sweetalert_demo_3_5').click(function (e) {
+                    swal("Good job!", "You clicked the button!", "question");
+                });
+
+                //== Sweetalert Demo 4
+                $('#m_sweetalert_demo_4').click(function (e) {
+                    swal({
+                        title: "Good job!",
+                        text: "You clicked the button!",
+                        icon: "success",
+                        confirmButtonText: "Confirm me!",
+                        confirmButtonClass: "btn btn-focus m-btn m-btn--pill m-btn--air"
+                    });
+                });
+
+                //== Sweetalert Demo 5
+                $('#m_sweetalert_demo_5').click(function (e) {
+                    swal({
+                        title: "Good job!",
+                        text: "You clicked the button!",
+                        icon: "success",
+
+                        confirmButtonText: "<span><i class='la la-headphones'></i><span>I am game!</span></span>",
+                        confirmButtonClass: "btn btn-danger m-btn m-btn--pill m-btn--air m-btn--icon",
+
+                        showCancelButton: true,
+                        cancelButtonText: "<span><i class='la la-thumbs-down'></i><span>No, thanks</span></span>",
+                        cancelButtonClass: "btn btn-secondary m-btn m-btn--pill m-btn--icon"
+                    });
+                });
+
+                $('#m_sweetalert_demo_6').click(function (e) {
+                    swal({
+                        position: 'top-right',
+                        type: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                });
+
+                $('#m_sweetalert_demo_7').click(function (e) {
+                    swal({
+                        title: 'jQuery HTML example',
+                        html: $('<div>')
+                            .addClass('some-class')
+                            .text('jQuery is everywhere.'),
+                        animation: false,
+                        customClass: 'animated tada'
+                    })
+                });
+
+                $('#m_sweetalert_demo_8').click(function (e) {
+                    swal({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then(function (result) {
+                        if (result.value) {
+                            swal(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }
+                    });
+                });
+
+                $('#m_sweetalert_demo_9').click(function (e) {
+                    swal({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'No, cancel!',
+                        reverseButtons: true
+                    }).then(function (result) {
+                        if (result.value) {
+                            swal(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                            // result.dismiss can be 'cancel', 'overlay',
+                            // 'close', and 'timer'
+                        } else if (result.dismiss === 'cancel') {
+                            swal(
+                                'Cancelled',
+                                'Your imaginary file is safe :)',
+                                'error'
+                            )
+                        }
+                    });
+                });
+
+                $('#m_sweetalert_demo_10').click(function (e) {
+                    swal({
+                        title: 'Sweet!',
+                        text: 'Modal with a custom image.',
+                        imageUrl: 'https://unsplash.it/400/200',
+                        imageWidth: 400,
+                        imageHeight: 200,
+                        imageAlt: 'Custom image',
+                        animation: false
+                    });
+                });
+
+                $('#m_sweetalert_demo_11').click(function (e) {
+                    swal({
+                        title: 'Auto close alert!',
+                        text: 'I will close in 5 seconds.',
+                        timer: 5000,
+                        onOpen: function () {
+                            swal.showLoading()
+                        }
+                    }).then(function (result) {
+                        if (result.dismiss === 'timer') {
+                            console.log('I was closed by the timer')
+                        }
+                    })
+                });
+            };
+
+            return {
+                //== Init
+                init: function () {
+                    initDemos();
+                },
+            };
+        }();
+
+        $("#target").click(function () {
+            //$("#load").animate({ height: "300px" });
+       
+
+            $("#mpesa").attr("src", "/images/System/android.png");
+
+            $("#infor").text("M-Pesa request has been sent to your phone please accept it!");
+            $("#loadingg").text("Waiting...");
+            $("#infor").attr("font-size", "10px");
+            //$("#mpesa").effect("shake", { times: 4 }, 1000);
+            $("#phone").fadeOut(1000);
+            $("#ammount").fadeOut(1000);
+            $("#target").fadeOut(1000);
+            $("#token").fadeOut(1000);
+            $("#load").animate({
+                width: "50px",
+                height: "50px",
+            }, 3000);
+            $("#makecash").submit(); // Submit the form
+        });
+        //== Class Initialization
+        jQuery(document).ready(function () {
+            SweetAlert2Demo.init();
+        });
+    </script>
+}
+
+
+

@@ -7,17 +7,14 @@ using System.Threading.Tasks;
 
 namespace LokwaInnovation.Models
 {
-    public class Conversation
+    public class Access_Tokens
     {
 
-        [Required]
-        public  string chatID { get; set; }
-        [Required]
-        public Boolean status { get; set; } = false;
         [Key]
-        [Required]
-        public int ID { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string User_id { get; set; }
+        public float Balance { get; set; } = 0;
+        public string DateModified { get; set; }
     }
 
 }

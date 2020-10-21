@@ -40,7 +40,8 @@ namespace LokwaInnovation.Controllers
             }
             else
             {
-                return Content("Not allowed");
+                return Redirect("~/Clients/Dashboard");
+
 
             }
 
@@ -51,9 +52,15 @@ namespace LokwaInnovation.Controllers
             return View();
 
         }
+        public void connectToPHP(String Phone,float Ammount)
+        {
+           
 
 
-            [AllowAnonymous]
+
+        }
+
+        [Authorize(Roles ="1")]
         public IActionResult Dashboard()
         {
 
@@ -62,7 +69,7 @@ namespace LokwaInnovation.Controllers
             ViewBag.itemlist = itemlist;
 
             //BIND DOCUMENTS
-            var messages = _context.AnonymousMessages.Where(x=> x.status==false).Count();
+            var messages = _context.Messages.Where(x=> x.status==false).Count();
             ViewBag.messages = messages.ToString();
 
 
@@ -113,10 +120,6 @@ namespace LokwaInnovation.Controllers
 
             return View();
 
-             
-
-            
-           
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

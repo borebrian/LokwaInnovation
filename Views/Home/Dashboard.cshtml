@@ -121,7 +121,12 @@
                                     }
 
                                     <h4 class="card-title">Messages</h4>
-                                    <p class="card-text">@ViewBag.messages &nbsp;<a asp-action="index" asp-controller="Contacts" class="card-title-custome">More details &nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i></a></p>
+                                    <p class="card-text">@ViewBag.messages &nbsp;<a asp-action="index" asp-controller="Messages" class="card-title-custome">More details &nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                                                                                 <a asp-action="create" asp-controller="Messages" class="card-title-custome">Create &nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                                    
+                                    </p>
+
+
 
                                 </div>
                                 @*<div class="card-body text-left">

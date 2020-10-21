@@ -9,7 +9,7 @@ using LokwaInnovation.DBContext;
 using LokwaInnovation.Models;
 using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Authorization;
-using Telegram.Bot.Types;
+
 using Microsoft.AspNetCore.Http;
 
 namespace LokwaInnovation.Controllers

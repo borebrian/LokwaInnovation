@@ -126,10 +126,10 @@ else
 <div class="card-footer">
    
         @*<div class="btn-group btn-group-sm">*@
-            <a class="btn btn-sm btn-primary text-light" asp-action="Details" asp-route-id="@item.ID"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Details</a>
-            <a class="btn btn-sm btn-primary text-light" asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Update</a>
-            <a class="btn btn-sm btn-primary" asp-action="PDF_Content" asp-controller="PDF_Documents" asp-route-id="@item.ID" text-light"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Read</a>
-            <a class="btn btn-sm btn-danger text-light" asp-action="Delete" asp-route-id="@item.ID"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Delete</a>
+            <a class="btn btn-sm btn-dark text-light" asp-action="Details" asp-route-id="@item.ID" style="border-radius:15px;"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Details</a>
+            <a class="btn btn-sm btn-dark text-light" asp-action="Edit" asp-route-id="@item.ID" style="border-radius:15px;"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;Update</a>
+            <a class="btn btn-sm btn-dark" asp-action="PDF_Content" asp-controller="PDF_Documents" asp-route-id="@item.ID" text-light" style="border-radius:15px;"><i class="fa fa-file-pdf-o" aria-hidden="true" style="border-radius:15px;"></i>&nbsp;&nbsp;Read</a>
+            <a class="btn btn-sm btn-dark text-light" style="border-radius:15px;" asp-action="Delete" asp-route-id="@item.ID"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;&nbsp;Delete</a>
 
 
 
@@ -145,6 +145,7 @@ else
 
 }
     </div>}
+
 
 
 

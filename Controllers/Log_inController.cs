@@ -56,9 +56,6 @@ namespace LokwaInnovation.Controllers
         {
             return View();
         }
-
-
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IActionResult LoginUser(Log_in user)
         {
             if (user.Phone_number == null || user.Password == null)
@@ -104,21 +101,22 @@ namespace LokwaInnovation.Controllers
             
             //return Redirect("~/Tenders/Master");
 
+
         }
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
-        public IActionResult redd()
+        public void redd()
         {
+            var user_id = User.Claims.FirstOrDefault(c => c.Type == "User_id").Value;
+            //LETS GET CLIENTS NAME
+            var contacts =  _context.Log_in
+                .First(m => m.User_ID.ToString() == user_id);
+            HttpContext.Session.SetString("FullNames", contacts.Full_name);
+            HttpContext.Session.SetString("PhoneNumber", contacts.Phone_number);
+            HttpContext.Session.SetString("Roles", contacts.Roles.ToString());
+            
 
-            var roles = User.Identity.Name;
-            //var log_in =  _context.Log_in.FindAsync(roles);
-            ////if(log_in.Roles==1)
-            //var blog = _context.Log_in
-            //       .Where(b => b.User_ID.ToString() == roles)
-            //       .FirstOrDefault();
-            //return log_in.r.ToString() == "1" ? Redirect("~/Home/Index") : Redirect("~/Log_in/Log_in");
-
-            return Content(roles);
+           
         }
 
         public IActionResult Logoff()

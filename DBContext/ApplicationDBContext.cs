@@ -28,6 +28,13 @@ namespace LokwaInnovation.DBContext
         public DbSet<PDF_Refference> Pdf_refference { get; set; }
         public DbSet<Conversation> Conversation { get; set; }
         public DbSet<LokwaInnovation.Models.Messages> Messages { get; set; }
+        public DbSet<LokwaInnovation.Models.Students> Students { get; set; }
+        public DbSet<LokwaInnovation.Models.Client_account> Client_account { get; set; }
+        public DbSet<LokwaInnovation.Models.MpesaTransactions> MpesaTransactions { get; set; }
+        public DbSet<LokwaInnovation.Models.Mpesa_Status> Mpesa_Status { get; set; }
+        public DbSet<LokwaInnovation.Models.Access_Tokens> Access_Tokens { get; set; }
+       
+     
 
        
 
