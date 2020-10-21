@@ -1,0 +1,64 @@
+﻿@model LokwaInnovation.Models.Token_price
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<nav aria-label="breadcrumb card-1">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a asp-action="Dashboard" asp-controller="Home" class="color">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="delete" asp-controller="Token_price" class="color">Delete</a></li>
+
+        <li class="breadcrumb-item active" aria-current="page"><span class="badge badge-pill badge-dark">Current token price</span></li>
+
+    </ol>
+
+</nav>
+<div class="card card-1">
+    <div class="card-body">
+        <h3>Are you sure you want to delete this?</h3>
+
+        <div class="col-12">
+            <table class="table">
+                <tr >
+                    <td style="border:none;">
+                        Price
+                    </td>
+                    <td class="text-danger" style="font-weight:bolder;border:none;" >
+                       
+                            <h2>@Html.DisplayFor(model => model.Token_pricelist)</h2>
+                    </td>
+                    </tr>
+                <tr>
+                    <td style="border:none;" >
+                       Last modified
+                    </td>
+                    <td style="font-weight:bolder;border:none">
+                        @Html.DisplayFor(model => model.DateModified)
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="ID" />
+           
+           
+
+            <table class="table">
+                <tr>
+                    <td class="text-left"  style="border:none;">
+                        <input type="submit" value="Yes" class="btn btn-danger " /> 
+                    </td>
+                    <td class="text-right"  style="border:none;">
+
+                        <a asp-action="Index" class="btn btn-primary" style="background-color: #007b5e;border:none
+">No</a>
+
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+        </div>

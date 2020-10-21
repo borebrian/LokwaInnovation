@@ -63,34 +63,50 @@ namespace LokwaInnovation.Controllers
         [Authorize(Roles ="1")]
         public IActionResult Dashboard()
         {
+            var token = _context.Token_price.FirstOrDefault();
+            if (token == null)
+            {
+                TempData["token"] = "Please set token price to continue!";
+                return Redirect("~/Token_price/Create");
 
 
-            var  itemlist = _context.PDF_Documents.ToList();
-            ViewBag.itemlist = itemlist;
+            }
+            else
+            {
 
-            //BIND DOCUMENTS
-            var messages = _context.Messages.Where(x=> x.status==false).Count();
-            ViewBag.messages = messages.ToString();
+                var itemlist = _context.PDF_Documents.ToList();
+                ViewBag.itemlist = itemlist;
+
+                //BIND DOCUMENTS
+                var messages = _context.Messages.Where(x => x.status == false).Count();
+                ViewBag.messages = messages.ToString();
 
 
-            //BIND DOCUMENTS
-            var docs = _context.PDF_Documents.Count();
-            ViewBag.docs = docs.ToString();
+                //BIND DOCUMENTS
+                var docs = _context.PDF_Documents.Count();
+                ViewBag.docs = docs.ToString();
 
 
-            //BIND VISITS
-            var visits = _context.Visits_counter.Count();
-            ViewBag.Visits = visits.ToString();
+                //BIND VISITS
+                var visits = _context.Visits_counter.Count();
+                ViewBag.Visits = visits.ToString();
 
-            //BIND CLIENTS
-            var clients = _context.Log_in.Where(x=>x.Roles==2).Count();
-            ViewBag.clients = clients.ToString();
+                //BIND CLIENTS
+                var clients = _context.Log_in.Where(x => x.Roles == 2).Count();
+                ViewBag.clients = clients.ToString();
 
-            //BIND CLIENTS
-            var faqs = _context.AnonymousMessages.Where(x => x.status).Count();
-            ViewBag.faqs = faqs.ToString();
-            return View();
+                //BIND CLIENTS
+                var faqs = _context.AnonymousMessages.Where(x => x.status).Count();
+                ViewBag.faqs = faqs.ToString();
 
+                //BIND TOKEN PRICE
+               
+                var price = token.Token_pricelist;
+
+                ViewBag.token = price.ToString();
+
+                return View();
+            }
         }
 
         //[ChildActionOnly]

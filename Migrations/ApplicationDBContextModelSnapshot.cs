@@ -16,6 +16,22 @@ namespace LokwaInnovation.Migrations
                 .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("LokwaInnovation.Models.Access_Tokens", b =>
+                {
+                    b.Property<int>("User_id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DateModified")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("User_id");
+
+                    b.ToTable("Access_Tokens");
+                });
+
             modelBuilder.Entity("LokwaInnovation.Models.Client_account", b =>
                 {
                     b.Property<int>("ID")
@@ -230,6 +246,23 @@ namespace LokwaInnovation.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("LokwaInnovation.Models.Token_price", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("DateModified")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<float>("Token_pricelist")
+                        .HasColumnType("float");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Token_price");
                 });
 
             modelBuilder.Entity("LokwaInnovation.Models.Visits_counter", b =>

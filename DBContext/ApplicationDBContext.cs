@@ -33,6 +33,7 @@ namespace LokwaInnovation.DBContext
         public DbSet<LokwaInnovation.Models.MpesaTransactions> MpesaTransactions { get; set; }
         public DbSet<LokwaInnovation.Models.Mpesa_Status> Mpesa_Status { get; set; }
         public DbSet<LokwaInnovation.Models.Access_Tokens> Access_Tokens { get; set; }
+        public DbSet<LokwaInnovation.Models.Token_price> Token_price { get; set; }
        
      
 

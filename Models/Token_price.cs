@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace LokwaInnovation.Models
 {
-    public class Access_Tokens
+    public class Token_price
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int User_id { get; set; }
-        public float Price { get; set; } = 0;
-        public string DateModified { get; set; }
+
+        [Key]
+        public int ID { get; set; }
+        public float Token_pricelist { get; set; }
+        [DataType(DataType.Date)]
+        public string DateModified { get; set; } = DateTime.Now.ToString();
     }
 
 }

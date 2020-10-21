@@ -1,0 +1,55 @@
+﻿@model IEnumerable<LokwaInnovation.Models.Token_price>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<nav aria-label="breadcrumb card-1">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a asp-action="Dashboard" asp-controller="Home" class="color">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="index" asp-controller="Token_price" class="color">Token price</a></li>
+
+        <li class="breadcrumb-item active" aria-current="page"><span class="badge badge-pill badge-dark">Current token price</span></li>
+
+    </ol>
+
+</nav>
+<div class="card card-1">
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="border:none">
+                       Token price/Unit
+                    </th>
+                    <th style="border:none">
+                        @Html.DisplayNameFor(model => model.DateModified)
+                    </th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="border:none">
+                            @Html.DisplayFor(modelItem => item.Token_pricelist)
+                        </td>
+                        <td style="border:none">
+                            @Html.DisplayFor(modelItem => item.DateModified)
+                        </td>
+                       
+                    </tr>
+                    <tr>
+                        <td style="border:none" colspan="2">
+                            <a asp-action="Edit" class="btn btn-primary btn-sm" style="        background-color: #007b5e;border:none
+" asp-route-id="@item.ID"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;Change price</a> 
+                         
+                            <a asp-action="Delete" class="btn btn-danger btn-sm"  asp-route-id="@item.ID">Delete &nbsp;<i class="fa fa-trash" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div></div>

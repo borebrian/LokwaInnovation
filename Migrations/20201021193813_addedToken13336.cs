@@ -3,10 +3,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LokwaInnovation.Migrations
 {
-    public partial class bfbf5 : Migration
+    public partial class addedToken13336 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Access_Tokens",
+                columns: table => new
+                {
+                    User_id = table.Column<int>(nullable: false),
+                    Price = table.Column<float>(nullable: false),
+                    DateModified = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Access_Tokens", x => x.User_id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AnonymousMessages",
                 columns: table => new
@@ -173,6 +186,20 @@ namespace LokwaInnovation.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Token_price",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Token_pricelist = table.Column<float>(nullable: false),
+                    DateModified = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Token_price", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Visits_counter",
                 columns: table => new
                 {
@@ -189,6 +216,9 @@ namespace LokwaInnovation.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Access_Tokens");
+
             migrationBuilder.DropTable(
                 name: "AnonymousMessages");
 
@@ -218,6 +248,9 @@ namespace LokwaInnovation.Migrations
 
             migrationBuilder.DropTable(
                 name: "Students");
+
+            migrationBuilder.DropTable(
+                name: "Token_price");
 
             migrationBuilder.DropTable(
                 name: "Visits_counter");

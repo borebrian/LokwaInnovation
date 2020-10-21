@@ -16,6 +16,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Threading;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace LokwaInnovation.Controllers
 {
@@ -117,24 +118,55 @@ namespace LokwaInnovation.Controllers
                     TempData["response"] = "The request has been sent to your phone please confirm the request to  complete the payment.";
 
                 }
+                //LETS DELAY TO WAIT FOR TRANSACTION TO TAKE PLACE
                 await Task.Delay(7000);
                 var posts = _context.Mpesa_Status.Where(w => w.User_id == user_id.ToString()).ToList();
                 var address = _context.Mpesa_Status.FirstOrDefault(a => a.User_id == user_id.ToString()&& a.Transaction_status==false);
                 int docCount = posts.Count();
+
+                //WE HAVE FOUND MPESA TRANSACTION
+
                 if (docCount > 0)
                 {
                     float ammount_paid = float.Parse(address.Ammount.ToString());
+                    
+                    //THE MPESA TRANSACTION RETURNED AN ERROR CODE(NO CASH RECEIVED)
+
                     if (ammount_paid <= 0)
                     {
+                        //LETS RENDER TRANSACTION USELESS
                         var renderUseless = _context.Mpesa_Status.SingleOrDefault(b => b.User_id == user_id.ToString() && b.Transaction_status == false);
                         renderUseless.Transaction_status = true;
                         _context.Add(renderUseless);
                         _context.Entry(renderUseless).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                         _context.SaveChanges();
                     }
+                        //THE MPESA TRANSACTION FOUND(CASH RECEIVED)
                     else
                     {
-                        var checkBal = _context.Access_Tokens.FirstOrDefault(a => a.User_id == user_id.ToString());
+                        var checkBal = _context.Access_Tokens.FirstOrDefault(a => a.User_id.ToString() == user_id);
+                        //LETS CHECK IF TOKEN ACCOUNT FOR THIS USER EXISTS
+                        if (checkBal == null)
+                        {
+                            //NO TOKEN ACCOUNT FOUND LETS CREATE ONE
+                            Access_Tokens insertNewToken = new Access_Tokens()
+                            {
+                                
+                                
+                                User_id = int.Parse(user_id.ToString()),
+                                //Balance = 0,
+                                DateModified = DateTime.Now.ToString()
+
+
+                            };
+                            _context.Add(insertNewToken);
+
+                            await _context.SaveChangesAsync();
+
+                            
+
+                        }
+                        //
 
                     }
                     TempData["response"] = address.ResultDesc;

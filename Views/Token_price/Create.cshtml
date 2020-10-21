@@ -1,0 +1,46 @@
+﻿@model LokwaInnovation.Models.Token_price
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<nav aria-label="breadcrumb card-1">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item "><a asp-action="Dashboard" asp-controller="Home" class="color">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-action="index" asp-controller="Token_price" class="color">Token price</a></li>
+  
+        <li class="breadcrumb-item active" aria-current="page"><span class="badge badge-pill badge-dark">Current token price</span></li>
+
+    </ol>
+</nav>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <div class="card card-1">
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Token_pricelist" class="control-label"></label>
+                        <input asp-for="Token_pricelist" class="form-control" />
+                        <span asp-validation-for="Token_pricelist" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DateModified" class="control-label"></label>
+                        <input asp-for="DateModified" class="form-control" />
+                        <span asp-validation-for="DateModified" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+            </div>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+
